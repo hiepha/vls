@@ -1,0 +1,79 @@
+spring:
+  jpa:
+    show-sql: true
+  datasource:
+    username: "root"
+    password: "root"
+    url: "jdbc:mysql://localhost:3306/vlls?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true"
+    driverClassName: "com.mysql.jdbc.Driver"
+  enviDatasource:
+    url: "jdbc:sqlite:./dict/en-vi/anh_viet.db"
+  vienDatasource:
+    url: "jdbc:sqlite:./dict/vi-en/viet_anh.db"
+
+vlls:
+  fb:
+    id: "553981174731375"
+    secret: "672e475a0e226cbcee223d5d6f342557"
+    redirect_uri: "http://localhost:8080/vlls-back/security/fb-oauth"
+    access_token_uri: "https://graph.facebook.com/oauth/access_token"
+    graph_uri: "https://graph.facebook.com/v2.1/me"
+    fql_uri: "https://api.facebook.com/method/fql.query"
+  mail:
+    smtp:
+      auth: true
+      starttls.enable: true
+    server:
+      host: "smtp.gmail.com"
+      port: 587
+      username: "fpt.cp.vls@gmail.com"
+      password: "slv.pc.tpf"
+      fromEmail: "fpt.cp.vls@gmail.com"
+      fromAlias: "Virtual Language Learning System"
+    template:
+      revision: "C:\\Users\\Dell\\Google Drive\\CAPSTONE\\vlls\\vlls-front\\src\\main\\resources\\revisionWords.html"
+      revisionNew: "C:\\Users\\Dell\\Google Drive\\CAPSTONE\\vlls\\vlls-front\\src\\main\\resources\\revisionNewWords.html"
+      reminder:
+  file:
+   en:
+    audio:
+     location: "C:\\Users\\Dell\\Google Drive\\CAPSTONE\\vlls\\vlls-front\\src\\main\\resources\\assets\\audio\\en"
+   item:
+    audio:
+     location: "C:\\Users\\Dell\\Google Drive\\CAPSTONE\\vlls\\vlls-front\\src\\main\\resources\\assets\\audio\\item"
+    img:
+     location: "C:\\Users\\Dell\\Google Drive\\CAPSTONE\\vlls\\vlls-front\\src\\main\\resources\\assets\\img\\item"
+   avatar:
+    img:
+     location: "C:\\Users\\Dell\\Google Drive\\CAPSTONE\\vlls\\vlls-front\\src\\main\\resources\\assets\\img\\item"
+   notification:
+    location: "C:\\Users\\Dell\\Google Drive\\CAPSTONE\\vlls\\vlls-back\\src\\main\\resources\\"
+   recommendation:
+    location: "C:\\Users\\Dell\\Google Drive\\CAPSTONE\\vlls\\vlls-back\\src\\main\\resources\\"
+   frontEnd:
+    url: "http://localhost/vlls-front/"
+#  file:
+#   en:
+#    audio:
+#     location: "C:\\Users\\Dell\\Google Drive\\VLLS\\Source Code\\vlls\\vlls-front\\src\\main\\resources\\assets\\audio\\en"
+#   item:
+#    audio:
+#     location: "C:\\Users\\Dell\\Google Drive\\VLLS\\Source Code\\vlls\\vlls-front\\src\\main\\resources\\assets\\audio\\item"
+#    img:
+#     location: "C:\\Users\\Dell\\Google Drive\\VLLS\\Source Code\\vlls\\vlls-front\\src\\main\\resources\\assets\\img\\item"
+#   avatar:
+#    img:
+#     location: "C:\\Users\\Dell\\Google Drive\\VLLS\\Source Code\\vlls\\vlls-front\\src\\main\\resources\\assets\\img\\item"
+# TuanNKA
+#  file:
+#    en:
+#      audio:
+#        location: "D:\\My courses\\Capstone\\Project\\Source Code\\vlls\\vlls-front\\src\\main\\resources\\assets\\audio\\en"
+#    item:
+#      audio:
+#        location: "C:\\Users\\TuanNKA\\Google Drive\\ngkanhtuan\\VLLS\\Source Code\\vlls\\vlls-front\\src\\main\\resources\\assets\\audio\\item"
+#      img:
+#        location: "C:\\Users\\TuanNKA\\Google Drive\\ngkanhtuan\\VLLS\\Source Code\\vlls\\vlls-front\\src\\main\\resources\\assets\\img\\item"
+#    avatar:
+#      img:
+#        location: "C:\\Users\\TuanNKA\\Google Drive\\ngkanhtuan\\VLLS\\Source Code\\vlls\\vlls-front\\src\\main\\resources\\assets\\img\\item"

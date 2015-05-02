@@ -1,0 +1,38 @@
+endpoints:
+  shutdown:
+    id: godown
+    enabled: true
+
+server:
+  port: 8080
+  contextPath: /vlls-back
+
+spring:
+  profiles:
+    active: dev
+  jpa:
+    hibernate:
+      connection.autoReconnect: true
+      ddl-auto: ""
+      naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+      c3p0.min_size: 1
+      c3p0.max_size: 50
+      c3p0.timeout: 300
+    database: MYSQL
+    database-platform: org.hibernate.dialect.MySQLDialect
+  datasource:
+    username: "root"
+    password: "root"
+    driverClassName: "com.mysql.jdbc.Driver"
+  enviDatasource:
+    driverClassName: "org.sqlite.JDBC"
+  vienDatasource:
+    driverClassName: "org.sqlite.JDBC"
+
+vlls:
+  messages:
+    default: "en"
+    en:
+      default-question-template: "What is '%s'?"
+    vi:
+      default-question-template: "'%s' là gì?"
