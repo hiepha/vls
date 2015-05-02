@@ -1,0 +1,75 @@
+<session>
+<div class="row content container-fluid">
+<div class="panel panel-default">
+    <div class="container-fluid panel-heading">
+        <h3>
+            <strong>
+                <i class="fa fa-image"></i>
+                Message
+            </strong>
+        </h3>
+    </div>
+    <div class="container-fluid row panel-body" style="margin-left: auto; margin-right: auto;margin: 0px -5px;">
+        <div class="col-md-12 chat-window">
+
+            <div class="chat-left-panel">
+                <div class="form-group">
+                    <input class="form-control" data-bind="select2: friendSearchSelect2Options, value: friendSearchId,
+                        event:{change: friendSelect}"/>
+                </div>
+                <div class="chat-recipients list-group" data-bind="foreach: conversations">
+                    <a href="javascript:;" class="list-group-item" data-bind="
+                        css: {active: (userId() == $root.selectedConversation.userId())},
+                        click: $root.select.bind($root, $data.userId())">
+                        <h4 class="list-group-item-heading" data-bind="text: userName"></h4>
+                    </a>
+                </div>
+            </div>
+            <div class="chat-main-form">
+                <div class="chat-avatar" data-bind="with: selectedConversation">
+                    <div class="col-md-2">
+                        <a href="javascript:;" class="thumbnail" data-bind="attr:{href: '#profile/' + userName()}">
+                            <img src="" data-bind="attr:{src: userAvatar}">
+                        </a>
+                    </div>
+                    <div class="col-md-10">
+                        <h4><strong data-bind="text: userName"></strong></h4>
+                    </div>
+                </div>
+                <div class="chat-messages" data-bind="foreach: conversationReplies">
+                    <div class="col-md-12">
+                        <!-- ko if: income() -->
+                        <div class="col-md-1 chat-reply-avatar">
+                            <a href="javascript:;" class="thumbnail" data-bind="attr:{href: '#profile/' + $root.selectedConversation.userName()}">
+                                <img src="" data-bind="attr:{src: $root.selectedConversation.userAvatar()}">
+                            </a>
+                        </div>
+                        <!-- /ko -->
+                        <div class="col-md-11">
+                            <div class="alert alert-info chat-message" role="alert"
+                                data-bind="css: {'alert-success': income(),
+                                    'alert-info': !income()}, text: reply">
+                            </div>
+                        </div>
+                        <!-- ko if: !income() -->
+                        <div class="col-md-1 chat-reply-avatar">
+                            <a href="javascript:;" class="thumbnail">
+                                <img src="" data-bind="attr:{src: $root.user.avatar()}">
+                            </a>
+                        </div>
+                        <!-- /ko -->
+                    </div>
+                </div>
+                <div class="chat-input">
+                    <form data-bind="submit: send">
+                        <div class="form-group">
+                            <input type="text" class="form-control" data-bind="value: messageInput" id="message-input">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</session>

@@ -1,0 +1,391 @@
+<session>
+<!-- BEGIN PAGE MODAL -->
+<!-- BEGIN NEW MODAL-->
+<div class="modal fade" id="add-question-modal">
+    <div class="modal-dialog">
+        <div class="modal-content" data-bind="">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span
+                        aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">Add New Question</h4>
+            </div>
+            <form class="form-horizontal" role="form" data-bind="
+                    template:{name:'question-details',data:newQuestion},
+                    submit: addQuestion, validate">
+            </form>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+<!--  END NEW MODAL-->
+
+<!-- BEGIN EDIT MODAL-->
+<div class="modal fade" id="edit-question-modal">
+    <div class="modal-dialog">
+        <div class="modal-content" data-bind="">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span
+                        aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">Edit Question</h4>
+            </div>
+            <form class="form-horizontal" role="form" data-bind="
+                    template:{name:'question-details',data:selectedQuestion},
+                    submit: updateQuestion, validate">
+            </form>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+<!--  END EDIT MODAL-->
+
+<!-- BEGIN DELETE MODAL-->
+<div class="modal fade" id="delete-question-modal">
+    <div class="modal-dialog">
+        <form class="modal-content" role="form" data-bind="submit: delQuestion">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span
+                        aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">Delete Question</h4>
+            </div>
+            <div class="modal-body">
+                <p>Do you really want to delete this question?</p>
+                <p data-bind="text: selectedQuestion.text"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-danger">Delete</button>
+            </div>
+        </form>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+<!-- END DELETE MODAL-->
+
+<script type="text/html" id="question-details">
+    <div class="modal-body">
+        <div class="form-group">
+            <div class="input-group col-sm-12">
+                <label for="edit-question-name" class="col-sm-2 control-label">Name</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" data-bind="value: text"
+                           data-rule-required="true" id="edit-question-name">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="input-group col-sm-12">
+                <label for="edit-question-type" class="col-sm-2 control-label">Type</label>
+                <div class="col-sm-10">
+                    <select class="form-control" id="edit-question-type"
+                        data-bind="options: $root.types,
+                            optionsText: 'text',
+                            optionsValue: 'value',
+                            value: type.value">
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="input-group col-sm-12">
+                <label for="edit-question-ask-for" class="col-sm-2 control-label">Ask For</label>
+                <div class="col-sm-10">
+                    <select class="form-control disabled" id="edit-question-ask-for"
+                        data-bind="options: $root.answerTypes,
+                            value: answerType">
+                    </select>
+                </div>
+            </div>
+        </div>
+        <hr/>
+        <div class="">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <span class="panel-title">Correct Answer</span>
+                </div>
+                <div class="panel-body">
+                    <table class="table">
+                        <tr>
+                            <td class="col-sm-4">
+                                <span data-bind="css: {badge: answerType() == 'WORD'}">
+                                    <!-- ko if: answerType() == 'WORD' -->
+                                    <i class="fa fa-check"></i>
+                                    <!-- /ko -->
+                                    Word
+                                </span>
+                            </td>
+                            <td class="col-sm-8">
+                                <input type="text" class="form-control" disabled
+                                       data-bind="value: $root.selectedItem.name">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-sm-4">
+                                <span data-bind="css: {badge: answerType() == 'MEANING'}">
+                                    <!-- ko if: answerType() == 'MEANING' -->
+                                    <i class="fa fa-check"></i>
+                                    <!-- /ko -->
+                                    Meaning
+                                </span>
+                            </td>
+                            <td class="col-sm-8">
+                                <input type="text" class="form-control" disabled
+                                       data-bind="value: $root.selectedItem.meaning">
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <hr/>
+        <div class="">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <span class="panel-title">Incorrect Answer</span>
+                </div>
+                <div class="panel-body">
+                    <!-- MULTIPLE CHOICE TABLE -->
+                    <!-- ko if: type.value() == 0 -->
+                    <table class="table">
+                        <tr>
+                            <td class="col-sm-4">Number of choices</td>
+                            <td class="col-sm-8">
+                                <select class="form-control" data-bind="options: $root.kou.range(2, 5),
+                                    value: incorrectAnswerNum">
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-sm-4">Mechanism <p class="help-block">*Random from</p></td>
+                            <td class="col-sm-8">
+                                <select class="form-control"
+                                        data-bind="options: $root.incorrectMechanisms,
+                                            optionsText: 'text',
+                                            optionsValue: 'value',
+                                            value: incorrectAnswerType.value">
+                                </select>
+                            </td>
+                        </tr>
+                        <tr data-bind="if: incorrectAnswerType.value() == 4">
+                            <td colspan="2">
+                                <strong>Raw Answers</strong>
+                                <p class="help-block">Incorrect answers will be randomized from these</p>
+                                <span class="red" data-bind="if: needIncorrectAnswerInputted()">Please add at least 1 incorrect answer</span>
+                            </td>
+                        </tr>
+                        <tr data-bind="if: incorrectAnswerType.value() == 4">
+                            <td data-bind="foreach: incorrectAnswerArray" colspan="2">
+                                <div class="form-group">
+                                    <div class="input-group" style="width: 100%">
+                                        <input class="form-control" data-bind="value: answer"/>
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default"
+                                                    data-bind="click: $root.removeRawAnswer.bind($root,$parent.incorrectAnswerArray,$data)">
+                                                <i class="fa fa-times"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr data-bind="if: incorrectAnswerType.value() == 4">
+                            <td colspan="2">
+                                <button type="button" class="btn btn-success pull-right"
+                                        data-bind="click: $root.addRawAnswer.bind($root,incorrectAnswerArray)">
+                                    <i class="fa fa-plus"></i>
+                                    Add
+                                </button>
+                            </td>
+                        </tr>
+                        <!--<tr data-bind="if: selectedIncorrectMechanismValue() == 5">-->
+                        <!--Raw Answer-->
+                        <!--Incorrect Answer will be randomized from these:-->
+                        <!--</tr>-->
+                        <!--<tr class="col-sm-12" data-bind="if: selectedIncorrectMechanismValue() == 5">-->
+                        <!--<input type="text" class="form-control">-->
+                        <!--</tr>-->
+                    </table>
+                    <!-- /ko -->
+                    <!-- MULTIPLE CHOICE TABLE ends -->
+                    <!-- USER INPUT TABLE -->
+                    <!-- ko if: type.value() == 1 -->
+                    <p>User input any value that is different from correct answer</p>
+                    <!-- /ko -->
+                    <!-- USER INPUT TABLE ends -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save</button>
+    </div>
+</script>
+
+<!-- END PAGE MODAL -->
+
+<!-- BEGIN Main body -->
+
+<!-- FILTER -->
+<div class="row">
+<div class="col-md-12">
+<div class="panel panel-default main-body">
+<div class="panel-body" data-bind="">
+    <div class="form-horizontal" role="form">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <strong>Filter</strong>
+            </div>
+            <form role="form" class="panel-body" data-bind="submit: $root.loadItem.bind($root,0)">
+                <table class="table" data-bind="with: filter">
+                    <thead>
+                    <th class="col-md-4">Level</th>
+                    <th class="col-md-4">Item</th>
+                    <th class="col-md-4">Size</th>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>
+                            <select class="form-control" data-bind="options: $root.levels,
+                                optionsText: 'name',
+                                optionsValue: 'id',
+                                value: levelId">
+                            </select>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" data-bind="value: filterKey"
+                                    placeholder="Word or Meaning"/>
+                        </td>
+                        <td>
+                            <select class="form-control" data-bind="options: $root.kou.range(1, 10),
+                                value: pageSize">
+                            </select>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success">
+                            <i class="fa fa-filter"></i> Filter
+                        </button>
+                        <button type="button" class="btn btn-default"
+                                data-bind="click: resetFilter">
+                            <i class="fa fa-eraser"></i> Reset
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+</div>
+<!-- FILTER ends -->
+
+<div class="row">
+<div class="col-md-12">
+<div class="panel panel-default main-body">
+<div class="panel-body" data-bind="foreach: items">
+<div class="panel panel-default" style="background: transparent">
+    <div class="panel-heading">
+        <strong data-bind="text: name">Table</strong>
+
+        <div class="pull-right">
+            <div class="btn-group">
+                <button type="button" class="btn btn-default btn-xs"
+                        data-bind="click: $root.selectNewQuestion.bind($root,$data)"
+                        data-toggle="modal" data-target="#add-question-modal">
+                    <i class="fa fa-plus"></i>
+                    Add Question
+                </button>
+                <button type="button" class="btn btn-default btn-xs"
+                        data-bind="click: $root.toggle.bind($root)">
+                    <!-- ko if: collapse() -->
+                    <i class="fa fa-angle-down"></i>
+                    Show
+                    <!-- /ko -->
+                    <!-- ko if: !collapse() -->
+                    <i class="fa fa-angle-up"></i>
+                    Hide
+                    <!-- /ko -->
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="panel-body" data-bind="css: { collapse: collapse() }">
+        <p>
+            <div class="input-group">
+                <span class="input-group-addon" data-bind="text: name">@</span>
+                <input type="text" class="form-control background-white" data-bind="value: meaning" disabled>
+            </div>
+        </p>
+    </div>
+
+    <!-- Table -->
+    <table class="table" data-bind="css: { collapse: collapse() }">
+        <thead>
+        <tr>
+            <th class="col-md-4">Name</th>
+            <th class="col-md-3">Type</th>
+            <th class="col-md-3">Incorrect Answer Type</th>
+            <th class="col-md-2">Option</th>
+        </tr>
+        </thead>
+        <tbody data-bind="foreach: questions">
+            <tr>
+                <td data-bind="text: text"></td>
+                <td data-bind="text: type.text"></td>
+                <td data-bind="text: incorrectAnswerType.text"></td>
+                <td colspan="2">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default btn-xs"
+                                data-bind="click: $root.selectQuestion.bind($root,$parent,$data)"
+                                data-toggle="modal" data-target="#edit-question-modal">
+                            <i class="fa fa-pencil"></i>
+                            Edit
+                        </button>
+                        <button type="button" class="btn btn-default btn-xs"
+                                data-bind="click: $root.selectQuestion.bind($root,$parent,$data)"
+                                data-toggle="modal" data-target="#delete-question-modal">
+                            <i class="fa fa-trash-o"></i>
+                            Delete
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</div>
+</div>
+<div class="text-center">
+    <ul class="pagination">
+        <li data-bind="css: {disabled:itemPaging.prevPage()==null}">
+            <a href="javascript:;" data-bind="click: $root.loadItem.bind($root,itemPaging.prevPage())">
+                <i class="fa fa-angle-double-left"></i>
+            </a>
+        </li>
+        <!-- ko foreach: itemPaging.range -->
+        <li data-bind="css:{disabled:$data==($parent.itemPaging.pageNumber() + 1)}">
+            <a href="javascript:;" data-bind="text: $data,
+                click: $root.loadItem.bind($root,$data-1)"></a>
+        </li>
+        <!-- /ko -->
+        <li data-bind="css: {disabled:itemPaging.nextPage()==null}">
+            <a href="javascript:;" data-bind="click: $root.loadItem.bind($root,itemPaging.nextPage())">
+                <i class="fa fa-angle-double-right"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+</div>
+</div>
+<!-- END Main body -->
+</session>

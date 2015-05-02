@@ -1,0 +1,32 @@
+CACHE MANIFEST
+# Explicitly cached 'master entries'.
+CACHE:
+index.html
+# Cache images
+assets/img/66180_Capitals_Icon.jpg
+# Cache plugins
+assets/plugins/bootstrap/dist/js/bootstrap.min.js
+assets/plugins/bootstrap/dist/css/bootstrap.min.css
+assets/plugins/bootstrap/dist/css/bootstrap-theme.min.css
+assets/plugins/durandal/js/activator.js
+assets/plugins/durandal/js/app.js
+assets/plugins/durandal/js/binder.js
+assets/plugins/durandal/js/composition.js
+assets/plugins/durandal/js/events.js
+assets/plugins/durandal/js/system.js
+assets/plugins/durandal/js/viewEngine.js
+assets/plugins/durandal/js/viewLocator.js
+assets/plugins/durandal/js/plugins/history.js
+assets/plugins/durandal/js/plugins/router.js
+assets/plugins/durandal/css/durandal.css
+assets/plugins/fontawesome/css/font-awesome.min.css
+assets/plugins/jquery/jquery.min.js
+assets/plugins/knockout.js/knockout.js
+assets/plugins/knockout-mapping/build/output/knockout.mapping-latest.js
+assets/plugins/requirejs/require.js
+assets/plugins/requirejs-text/text.js
+# Cache common app item
+assets/pages/user.js
+assets/pages/conf.js
+NETWORK:
+*

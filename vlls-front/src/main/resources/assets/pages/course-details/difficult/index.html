@@ -1,0 +1,50 @@
+<session>
+    <!-- Main content -->
+    <div class="row">
+        <!-- Left sidebar -->
+        <!-- Left sidebar ends -->
+
+        <!-- Main body -->
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <table class="table">
+                        <thead>
+                        <th>Name</th>
+                        <th>Meaning</th>
+                        <th>Pronun</th>
+                        <th>Type</th>
+                        <th>Level</th>
+                        </thead>
+                        <!-- ko if: difficultWords().length > 0 -->
+                        <tbody data-bind="foreach: difficultWords()">
+                        <tr>
+                            <td data-bind="text: name"></td>
+                            <td data-bind="text: meaning"></td>
+                            <td data-bind="text: pronun"></td>
+                            <td data-bind="text: type"></td>
+                            <td data-bind="text: levelName"></td>
+                        </tr>
+                        </tbody>
+                        <!-- /ko -->
+                        <!-- ko if: difficultWords().length == 0-->
+                        <tbody>
+                        <tr class="text-center">
+                            <td colspan="5">No difficult words detected</td>
+                        </tr>
+                        </tbody>
+                        <!--/ko -->
+                    </table>
+                </div>
+                <div class="panel-footer">
+                    <strong>
+                        Notes:
+                    </strong>
+                    This page shows the difficult words in this course that you has finish learning, which mean
+                    words you answered wrong many times than right.
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Main content ends-->
+</session>

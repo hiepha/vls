@@ -1,0 +1,481 @@
+<session>
+<style>
+    .fileUpload {
+        position: relative;
+        overflow: hidden;
+        float: right;
+    }
+
+    .fileUpload input.upload {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 0;
+        padding: 0;
+        font-size: 14px;
+        cursor: pointer;
+        opacity: 0;
+        filter: alpha(opacity=0);
+    }
+</style>
+<!-- BEGIN PAGE MODAL -->
+<!-- BEGIN NEW/EDIT MODAL -->
+<div class="modal fade" id="edit-level-modal">
+    <div class="modal-dialog">
+        <form class="modal-content" role="form"
+              data-bind="with: selectedLevel, validate:{submitHandler:$root.saveLevel.bind($root)}">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+                <h4 class="modal-title">Level</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="fa fa-font"></i>
+                            </span>
+                        <input type="text" class="form-control" placeholder="Name"
+                               data-bind="value: name" data-rule-required="true">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="fa fa-file-text-o"></i>
+                            </span>
+                        <input type="text" class="form-control" placeholder="Description"
+                               data-bind="value: description">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+        </form>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+<!-- END NEW/EDIT MODAL -->
+<!-- BEGIN DELETE MODAL -->
+<div class="modal fade" id="del-level-modal">
+    <div class="modal-dialog">
+        <form class="modal-content" role="form"
+              data-bind="with: selectedLevel, validate:{submitHandler:$root.delLevel.bind($root)}">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+                <h4 class="modal-title">Level</h4>
+            </div>
+            <div class="modal-body">
+                <p>Do you really want to delete this level?</p>
+
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="fa fa-font"></i>
+                        </span>
+                        <input type="text" class="form-control"
+                               data-bind="value: name" readonly>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="fa fa-file-text-o"></i>
+                        </span>
+                        <input type="text" class="form-control"
+                               data-bind="value: description" readonly>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-danger">Delete</button>
+            </div>
+        </form>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+<!-- END DELETE MODAL -->
+<!-- END PAGE MODAL -->
+
+<div class="row">
+<!-- Main body -->
+<div class="col-md-12">
+<div class="panel panel-default main-body">
+<div class="panel-body">
+<div class="row">
+    <div class="col-md-12">
+        <button type="button" class="btn btn-default"
+                data-bind="click: $root.selectLevel.bind($root, null)"
+                data-toggle="modal" data-target="#edit-level-modal">
+            <i class="fa fa-plus"></i> Add Level
+        </button>
+    </div>
+</div>
+<div data-bind="foreach: levels">
+<hr/>
+<div class="panel panel-default" style="background: transparent">
+<div class="panel-heading">
+    <strong data-bind="text: name">Level 1</strong>
+
+    <div class="pull-right btn-group">
+        <button type="button" class="btn btn-default btn-xs"
+                data-bind="click: $root.selectLevel.bind($root, $data)"
+                data-toggle="modal" data-target="#edit-level-modal">
+            <i class="fa fa-pencil"></i>
+            Edit
+        </button>
+        <button type="button" class="btn btn-default btn-xs"
+                data-bind="click: $root.selectLevel.bind($root, $data)"
+                data-toggle="modal" data-target="#del-level-modal">
+            <i class="fa fa-trash-o"></i>
+            Delete
+        </button>
+        <button type="button" class="btn btn-default btn-xs"
+                data-bind="click: $root.toggle.bind($root, $data)">
+            <!-- ko if: collapse() -->
+            <i class="fa fa-angle-down"></i>
+            Show
+            <!-- /ko -->
+            <!-- ko if: !collapse() -->
+            <i class="fa fa-angle-up"></i>
+            Hide
+            <!-- /ko -->
+        </button>
+    </div>
+</div>
+<div class="panel-body" data-bind="css: { collapse: collapse() }">
+    <div>
+        Test on <span data-bind="text: $root.course.langTeach"></span>, prompt with <span data-bind="text: $root.course.langSpeak"></span>.
+        <div class="btn-group pull-right">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                <i class="fa fa-gear"></i>
+                Advanced
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+                <li>
+                    <a href="#" data-bind="click: $root.showCSVModal.bind($root, $data)"
+                       data-toggle="modal" data-target="#csvPreviewModal">
+                        <i class="fa fa-plus"></i>
+                        Bulk add items
+                    </a>
+                </li>
+                <li>
+                    <a href="#" onclick="$(this).closest('li').find('form').submit(); return false;">
+                        <i class="fa fa-download"></i>
+                        Export <strong data-bind="text: $data.name"></strong>'s items
+                    </a>
+                    <!--<iframe style="display: none;">-->
+                        <form method="get" data-bind="attr: {action: $root.csvURL()}">
+                            <input type="hidden" name="id" data-bind="value: id()">
+                        </form>
+                    <!--</iframe>-->
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Table -->
+<table class="table" data-bind="css: { collapse: collapse() }">
+    <thead>
+    <tr>
+        <th class="col-md-1"></th>
+        <th class="col-md-2" data-bind="text: $root.course.langTeach">English</th>
+        <th class="col-md-3" data-bind="text: $root.course.langSpeak">Vietnamese</th>
+        <th class="col-md-2">Audio</th>
+        <th class="col-md-2">Pronunciation</th>
+        <th class="col-md-2">Type</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- ko foreach: items() -->
+    <!-- DISPLAY ROW -->
+    <tr data-bind="if: !isEditing()">
+        <td class="text-center">
+            <div class="btn-group">
+                <button type="button" class="btn btn-default btn-xs"
+                        data-bind="click: $root.delItem.bind($root, $data, $parent)">
+                    <i class="fa fa-trash-o"></i>
+                </button>
+                <button type="button" class="btn btn-default btn-xs"
+                        data-bind="click: $root.startEditItem.bind($root, $data)">
+                    <i class="fa fa-pencil"></i>
+                </button>
+            </div>
+        </td>
+        <td data-bind="text: name"></td>
+        <td data-bind="text: meaning"></td>
+        <td data-bind="if: audio()" class="text-center">
+            <button type="button" data-bind="popover,
+                                            attr:{'data-content':'<audio controls autoplay style=\'width:250px;\'><source type=\'audio/mpeg\' src=\'' + audio() + '\'></audio>'}"
+                    class="btn btn-default btn-xs" data-container="body" data-toggle="popover"
+                    data-html="true" data-placement="bottom"
+                    data-trigger="focus"
+                    data-content="<div class='popover-content'>content</div>">
+                <i class="fa fa-volume-up"></i>
+            </button>
+        </td>
+        <td data-bind="text: pronun"></td>
+        <td data-bind="text: type"></td>
+    </tr>
+    <!-- DISPLAY ROW ends -->
+    <!-- EDIT ROW -->
+    <tr data-bind="if: isEditing()">
+        <td class="text-center">
+            <div class="btn-group">
+                <button type="button" class="btn btn-success btn-xs"
+                        data-bind="click: $root.updateItem.bind($root, $parent, $data)">
+                    <i class="fa fa-save"></i>
+                </button>
+                <button type="button" class="btn btn-default btn-xs"
+                        data-bind="click: $root.cancelEditItem.bind($root, $data)">
+                    <i class="fa fa-remove"></i>
+                </button>
+            </div>
+        </td>
+        <td>
+            <input class="form-control" data-bind="value: name">
+            <label class="error" data-bind="if: isSubmitting() && !name()">
+                This field is required.
+            </label>
+        </td>
+        <td>
+            <input class="form-control" data-bind="value: meaning">
+            <label class="error" data-bind="if: isSubmitting() && !meaning()">
+                This field is required.
+            </label>
+        </td>
+        <td class="text-center">
+            <!-- ko if: audio() -->
+            <button type="button" data-bind="popover,
+                                            attr:{'data-content':'<audio controls autoplay style=\'width:250px;\'><source type=\'audio/mpeg\' src=\'' + audio() + '\'></audio>'}"
+                    class="btn btn-default btn-xs" data-container="body" data-toggle="popover"
+                    data-trigger="focus"
+                    data-html="true" data-placement="bottom"
+                    data-content="<div class='popover-content'>content</div>">
+                <i class="fa fa-volume-up"></i>
+            </button>
+            <button type="button" class="btn btn-default btn-xs"
+                    data-bind="click: $root.deleteAudio.bind($root, $data)">
+                <i class="fa fa-trash-o"></i>
+            </button>
+            <br/>
+            <!-- /ko -->
+            <!-- ko if: !audio() -->
+            <span class="btn btn-default btn-xs fileinput-button">
+                <i class="fa fa-file"></i>
+                Choose <span data-bind="if: audioName()">other</span>
+                <input type="file" name="file" accept="audio/mpeg" data-bind="
+                       event:{change:$root.audioChosen.bind($root,$data,$element)}"/>
+            </span>
+            <span data-bind="text: audioName"></span>
+            <!-- /ko -->
+        </td>
+        <td><input class="form-control" data-bind="value: pronun"></td>
+        <td><input class="form-control" data-bind="value: type"></td>
+    </tr>
+    <!-- EDIT ROW ends -->
+    <!-- /ko -->
+    <!-- NEW ITEM -->
+    <tr>
+        <td class="text-center">
+            <div class="btn-group">
+                <button type="button" class="btn btn-success btn-xs"
+                        data-bind="click: $root.addItem.bind($root,$data)">
+                    <i class="fa fa-plus"></i>
+                </button>
+                <button type="button" class="btn btn-default btn-xs"
+                        data-bind="click: $root.resetItem.bind($root,newItem)">
+                    <i class="fa fa-times"></i>
+                </button>
+            </div>
+        </td>
+        <td>
+            <!-- ko ifnot: $root.dictType() -->
+            <input class="form-control" data-bind="value: newItem.name"
+                   data-rule-required="true">
+            <!-- /ko -->
+            <!-- ko if: $root.dictType() -->
+            <input class="form-control dictElement" data-bind="select2: $root.dictOptions(), value: dictWordId,
+                event: {change: $root.loadRecomItems.bind($root,$data)}"/>
+            <!-- /ko -->
+            <!-- ko if: isSubmitting() && !newItem.name() -->
+            <label class="error">
+                This field is required.
+            </label>
+            <!-- /ko -->
+        </td>
+        <td>
+            <input class="form-control" data-bind="value: newItem.meaning"
+                   data-rule-required="true">
+            <!-- ko if: isSubmitting() && !newItem.meaning() -->
+            <label class="error">
+                This field is required.
+            </label>
+            <!-- /ko -->
+        </td>
+        <td class="text-center">
+            <!-- ko ifnot: newItem.hasAudio() -->
+            <span class="btn btn-default btn-xs fileinput-button">
+                <i class="fa fa-file"></i>
+                Choose <span data-bind="if: newItem.audioName()">other</span>
+                <input type="file" name="file" accept="audio/mpeg" data-bind="
+                       event:{change:$root.audioChosen.bind($root,newItem,$element)}"/>
+            </span>
+            <span data-bind="text: newItem.audioName"></span>
+            <!-- /ko -->
+            <!-- ko if: newItem.hasAudio() -->
+            <button type="button" data-bind="popover,
+                                            attr:{'data-content':'<audio controls autoplay style=\'width:250px;\'><source type=\'audio/mpeg\' src=\'assets/audio/en/' + newItem.name() + '.wav\'></audio>'}"
+                    class="btn btn-default btn-xs" data-container="body" data-toggle="popover"
+                    data-trigger="focus"
+                    data-html="true" data-placement="bottom"
+                    data-content="<div class='popover-content'>content</div>">
+                <i class="fa fa-volume-up"></i>
+            </button>
+            <!-- /ko -->
+        </td>
+        <td>
+            <input class="form-control" data-bind="value: newItem.pronun">
+        </td>
+        <td>
+            <input class="form-control" data-bind="value: newItem.type">
+        </td>
+    </tr>
+    <!-- NEW ITEM ends -->
+    </tbody>
+</table>
+
+<!--<div class="panel-body" data-bind="css: { collapse: collapse() }, if: $root.dictType()">-->
+    <!--<div class="col-md-4 col-md-offset-1" style="padding-left: 0px;">-->
+        <!--<div class="form-group">-->
+            <!--<input class="form-control dictElement" data-bind="select2: $root.dictOptions(), value: dictWordId,-->
+                <!--event: {change: $root.loadRecomItems.bind($root,$data)}"/>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
+
+<!-- Recommend Table -->
+<table class="table" data-bind="css: { collapse: collapse() }, if: recommendItems() && recommendItems().length > 0">
+    <thead>
+    <tr>
+        <th class="col-md-1"></th>
+        <th class="col-md-3" data-bind="text: $root.course.langTeach">English</th>
+        <th class="col-md-3" data-bind="text: $root.course.langSpeak">Vietnamese</th>
+        <th class="col-md-1">Audio</th>
+        <th class="col-md-2">Pronunciation</th>
+        <th class="col-md-2">Type</th>
+    </tr>
+    </thead>
+    <tbody data-bind="foreach: recommendItems">
+    <tr>
+        <td class="text-center">
+            <button type="button" class="btn btn-default"
+                    data-bind="click: $root.chooseRecomItem.bind($root, $data, $parent)">
+                <i class="fa fa-check"></i>
+            </button>
+        </td>
+        <td data-bind="text: name"></td>
+        <td data-bind="text: meaning"></td>
+        <td data-bind="if: hasAudio()">
+            <button type="button" data-bind="popover,
+                                            attr:{'data-content':'<audio controls autoplay style=\'width:250px;\'><source type=\'audio/mpeg\' src=\'assets/audio/en/' + name() + '.wav\'></audio>'}"
+                    class="btn btn-default btn-xs" data-container="body" data-toggle="popover"
+                    data-trigger="focus"
+                    data-html="true" data-placement="bottom"
+                    data-content="<div class='popover-content'>content</div>">
+                <i class="fa fa-volume-up"></i>
+            </button>
+        </td>
+        <td data-bind="text: pronun"></td>
+        <td data-bind="text: type"></td>
+    </tr>
+    </tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="csvPreviewModal" tabindex="-1" role="dialog" aria-labelledby="csvPreviewModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" data-bind="click: $root.resetCSV.bind($root)">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="csvPreviewModalLabel">
+                    <i class="fa fa-plus"></i>
+                    Bulk add items
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" id="uploadFile" placeholder="No file chosen"
+                                   disabled="disabled"/>
+                        </div>
+                        <div class="fileUpload btn btn-info col-md-3">
+                            <span>
+                                <i class="fa fa-file-excel-o"></i>
+                                Browse
+                            </span>
+                            <input id="uploadBtn" type="file" class="upload" accept=".csv"
+                                   data-bind="event: {change: $root.chooseCSVFile.bind($root, $element)}"/>
+                        </div>
+                    </div>
+                </div>
+                <div id="items-preview" style="display: none;">
+                    <div class="alert alert-info">
+                        The following items will added to
+                        <strong data-bind="text: csvLevel.name()"></strong> of
+                        <strong data-bind="text: course.name()"></strong>
+                    </div>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <!-- ko foreach: csvHeaders -->
+                            <th data-bind="text: $data">
+                            </th>
+                            <!-- /ko -->
+                        </tr>
+                        </thead>
+                        <tbody data-bind="foreach: csvData">
+                        <tr>
+                            <td data-bind="text: $index() + 1"></td>
+                            <!-- ko foreach: $data -->
+                            <td data-bind="text: $data">
+                            </td>
+                            <!-- /ko -->
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="row">
+                        <button id="import-item" type="button" class="btn btn-primary col-md-4 col-md-offset-4"
+                                data-bind="click: $root.importCSV.bind($root)">
+                            <i class="fa fa-upload"></i>
+                            Import
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Main body ends -->
+</div>
+</session>

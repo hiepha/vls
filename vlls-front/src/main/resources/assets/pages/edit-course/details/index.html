@@ -1,0 +1,135 @@
+<session>
+    <div class="row" data-bind="with: course">
+        <!-- Main body -->
+        <div class="col-md-4">
+            <div class="panel panel-default main-body">
+                <div class="panel-body">
+                    <div class="thumbnail" style="width: 251px; height: 251px;">
+                        <img style="width: 241px; height: 241px;"
+                             data-bind="attr: {src: (avatar() == null || avatar() == '') ? 'assets/img/course-0.png' : avatar()}"
+                             src="assets/img/course-0.png"/>
+                    </div>
+                    <div>
+                        <span class="btn btn-default fileinput-button" style="width: 100%">
+                            <i class="fa fa-picture-o"></i>
+                            <span data-bind="if: $root.file() == null">Choose picture</span>
+                            <!-- ko if: $root.file() != null -->
+                            <span data-bind="text: $root.file().name"></span>
+                            <!-- /ko -->
+                            <input type="file" name="file"
+                                   data-bind="event: {change: $root.readURL.bind($root, $element)}"/>
+                        </span>
+                    </div>
+                    <div data-bind="if: $root.file() != null">
+                        <br/>
+                        <br/>
+                        <span class="btn btn-success fileinput-button"
+                              style="width: 100%; font-size: 17px; margin-bottom: 10px;"
+                              data-bind="click: $root.savePicture.bind($root)">
+                            <i class="fa fa-upload"></i>
+                            <span>Upload image</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="panel panel-default main-body">
+                <div class="panel-body">
+                    <form role="form" class="form-horizontal" data-bind="submit: $root.submitForm, validate">
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <label for="name" class="pull-right">Name</label>
+                            </div>
+                            <div class="col-md-9">
+                                <input class="form-control" id="name"
+                                       data-bind="value: name, event: {change: $root.setEdited}"
+                                       data-rule-required="true">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <label for="category" class="pull-right">Category</label>
+                            </div>
+                            <div class="col-md-6">
+                                <select class="form-control" id="category" data-rule-required="true"
+                                        data-bind="
+                                        options: $root.categories,
+                                        optionsText: 'name',
+                                        optionsValue: 'id',
+                                        value: categoryId, event: {change: $root.setEdited}">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <label for="teaching" class="pull-right">Teaching</label>
+                            </div>
+                            <div class="col-md-6">
+                                <select class="form-control" id="teaching" data-rule-required="true"
+                                        data-bind="
+                                        options: $root.languages,
+                                        optionsText: 'name',
+                                        optionsValue: 'id',
+                                        value: langTeachId, event: {change: $root.setEdited}">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <label for="for" class="pull-right">For</label>
+                            </div>
+                            <div class="col-md-6">
+                                <select class="form-control" id="for" data-rule-required="true"
+                                        data-bind="
+                                        options: $root.languages,
+                                        optionsText: 'name',
+                                        optionsValue: 'id',
+                                        value: langSpeakId, event: {change: $root.setEdited}">
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label>speakers</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <label for="for" class="pull-right">Description</label>
+                            </div>
+                            <div class="col-md-9">
+                                <textarea class="form-control" id="des"
+                                          data-bind="
+                                        value: description, event: {change: $root.setEdited}">
+                                </textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <label for="for" class="pull-right">Status</label>
+                            </div>
+                            <div class="col-md-6">
+                                <select class="form-control" id="status"
+                                        data-bind="
+                                        options: $root.status,
+                                        optionsText: 'text',
+                                        optionsValue: 'value',
+                                        value: isPublic, event: {change: $root.setEdited}">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-3 col-sm-12">
+                                <button type="submit" class="btn btn-success">
+                                    <i class="fa fa-check"></i>
+                                    Save
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main body ends -->
+    </div>
+</session>

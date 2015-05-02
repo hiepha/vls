@@ -1,0 +1,128 @@
+<session>
+
+<!-- Header info -->
+<nav class="navbar navbar-inverse bg-half-transparent header-element" role="navigation"
+     style="border-radius: 6px; border-top-right-radius: 0; border-top-left-radius: 0;">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#" style="height: auto;">
+                <strong style="font-size: 22px;">
+                    <i class="fa fa-th-large"></i>
+                    Courses
+                </strong>
+            </a>
+            <span style="font-size: 22px; margin: 0 5px; padding: 15px; float: left; line-height: 20px;">
+                <strong>
+                    <i class="fa fa-angle-right"></i>
+                </strong>
+            </span>
+<span class="navbar-brand" style="height: auto; line-height: 22px; font-size: 15px;">
+                Search:
+                <strong>
+                    <span style="color: #ffffff;">Vietnamese</span>
+                </strong>
+            </span>
+        </div>
+        <div class="collapse navbar-collapse">
+            <form class="navbar-form navbar-right" role="search">
+                <div class="input-group">
+                    <input type="text" class="form-control">
+                    <span class="input-group-btn">
+                    <button class="btn btn-default" type="button">
+                        <i class="fa fa-search"></i>
+                    </button>
+                    </span>
+                </div>
+            </form>
+        </div>
+    </div>
+</nav>
+<!-- Header info ends -->
+
+<!-- Main content -->
+<div class="row">
+    <!-- Left sidebar -->
+    <div class="col-md-3" style="position: relative;">
+        <div id="left_sidebar" class="bg-half-transparent">
+            <ul class="main_menu">
+                <li class="menu_item active">
+                    <a href="javascript: void(0)">test</a>
+                </li>
+                <li class="menu_item">
+                    <a href="javascript: void(0)">test</a>
+                </li>
+                <li class="menu_item">
+                    <a href="javascript: void(0)">test</a>
+                </li>
+                <li class="menu_item">
+                    <a href="javascript: void(0)">test</a>
+                </li>
+                <li class="menu_item">
+                    <a href="javascript: void(0)">test</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- Left sidebar ends -->
+
+    <!-- Main body -->
+    <div class="col-md-9">
+        <div class="panel panel-default bg-half-transparent main-body">
+        <form class="form-horizontal" role="form">
+            <div class="form-group">
+                <div class="col-md-4" align="right">
+                    <label for="inputUsername" >Username</label>
+                </div>
+                <div class="col-md-6" align="left">
+                    <input type="text" class="form-control" id="inputUsername">
+                </div>
+                <div class="col-md-2" align="right">
+                    &nbsp;
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-4" align="right">
+                    <label for="inputPassword" >Password</label>
+                </div>
+                <div class="col-md-6">
+                    <input type="password" class="form-control" id="inputPassword">
+                </div>
+                <div class="col-md-2" align="right">
+                    &nbsp;
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-4" align="right">
+                    &nbsp;
+                </div>
+                <div class="col-md-6">
+                    <a href="javascript: void(0)">I forgot my password!</a>
+                </div>
+            </div>
+            <div class="form-group" align="center">
+                <button type="submit" class="btn btn-success btn-lg">Login</button>
+            </div>
+        </form>
+        </div>
+    </div>
+    <!-- Main body ends -->
+</div>
+    <form data-bind="ajaxForm: ajaxFormOption, attr: {action: uploadUrl}"
+          enctype="multipart/form-data" method="post">
+        ItemId: <input type="text" name="itemId"><br/>
+        File: <input type="file" name="file" data-bind="value: fileName"><br/>
+        <!-- ko if: fileName() -->
+        name: <input type="text" name="name" data-bind="value: fileName" readonly><br/>
+        <button type="submit">Sumit</button>
+        <!-- /ko -->
+    </form>
+    <form data-bind="submit: $root.submitForm.bind($root, $element)">
+        ItemId: <input type="text" name="itemId" value="1"><br/>
+        File: <input type="file" name="file"><br/>
+        name: <input type="text" name="name" value="abc.png" readonly><br/>
+        <button type="submit">Submit</button>
+    </form>
+<!-- Main content ends-->
+</session>

@@ -1,0 +1,277 @@
+<session class="course">
+
+<!-- Header info -->
+<nav class="navbar header-element page-title" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#course"
+               data-toggle="modal"
+               data-target=".tutor-modal">
+                <i class="fa fa-th-large"></i>
+                Courses
+            </a>
+             <span class="navbar-brand liner">
+              <strong>
+                  <i class="fa fa-angle-right"></i>
+              </strong>
+             </span>
+             <span class="navbar-brand search-keyword" data-bind="if: searchKeyDisplay()">
+              Search:
+              <span data-bind="text: searchKeyDisplay"></span>
+             </span>
+        </div>
+
+        <div class="navbar-header pull-right" style="width: 30%;">
+            <form class="navbar-form navbar-right" role="search" data-bind="submit: search">
+                <div class="input-group">
+                    <input type="text" class="form-control" data-bind="value: searchKeyDisplay">
+                   <span class="input-group-btn">
+                    <button class="btn btn-default" type="submit" style="background: rgb(242, 140, 24); color: #fff;">
+                        <i class="fa fa-search"></i>
+                    </button>
+                   </span>
+                </div>
+            </form>
+        </div>
+    </div>
+</nav>
+<!-- Header info ends -->
+
+<!-- Main content -->
+<div class="row content">
+    <!-- Left sidebar -->
+    <div class="col-md-3 col-sm-3" style="position: relative;">
+        <div id="left_sidebar" class="">
+            <ul class="main_menu">
+                <!-- SPEAK -->
+                <li class="menu_item">
+                    <h5 class="text-left">
+                        <strong>I speak</strong>
+                    </h5>
+
+                    <div class="form-group">
+                        <input class="form-control" data-bind="select2Array: {
+                            data: languages, allowClear: true,
+                            placeholder: 'Choose...',
+                            formatResult: formatFlag,
+                            formatSelection: formatFlag},
+                            value: langSpeakId,
+                            event:{change:$root.loadCourse.bind($root, null)}"/>
+                    </div>
+                </li>
+                <!-- SPEAK ends -->
+
+                <!-- LEARN -->
+                <li class="menu_item">
+                    <h5 class="text-left">
+                        <strong>I learn</strong>
+                    </h5>
+
+                    <div class="form-group">
+                        <input class="form-control" data-bind="select2Array: {
+                            data: languages, allowClear: true,
+                            placeholder: 'Choose...',
+                            formatResult: formatFlag,
+                            formatSelection: formatFlag},
+                            value: langLearnId,
+                            event:{change:$root.loadCourse.bind($root, null)}"/>
+                    </div>
+                </li>
+                <!-- LEARN ends -->
+
+                <li class="menu_item">
+                    <h4>
+                        <strong>Categories</strong>
+                    </h4>
+
+                    <div class="list-group" data-bind="foreach: categories" style="background-color: #ffffff;">
+                        <a href="javascript:;" data-bind="text: name, click: $root.cate.bind($root),
+                            css: {active: $root.category.name() == name()}" class="list-group-item">
+                        </a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- Left sidebar ends -->
+
+    <!-- Main body -->
+    <div class="col-md-9 col-sm-9 row main-body">
+        <div class="row">
+            <div class="btn-group btn-group-xs pull-right">
+                <button class="btn" value="Popular"
+                        data-bind="css:{
+                            'btn-default': $element.value != $root.filter(),
+                            'btn-success': $element.value == $root.filter()
+                        }, click: $root.selectFilter.bind($root, $element.value)">Popular
+                </button>
+                <button class="btn" value="Rated"
+                        data-bind="css:{
+                            'btn-default': $element.value != $root.filter(),
+                            'btn-success': $element.value == $root.filter()
+                        }, click: $root.selectFilter.bind($root, $element.value)">Rated
+                </button>
+                <button class="btn" value="Latest"
+                        data-bind="css:{
+                            'btn-default': $element.value != $root.filter(),
+                            'btn-success': $element.value == $root.filter()
+                        }, click: $root.selectFilter.bind($root, $element.value)">Latest
+                </button>
+                <button class="btn" value="Recommend"
+                        data-bind="css:{
+                            'btn-default': $element.value != $root.filter(),
+                            'btn-success': $element.value == $root.filter()
+                        }, click: $root.selectFilter.bind($root, $element.value),
+                        attr:{disabled:!$root.user.isLogin()}">Recommend
+                </button>
+            </div>
+        </div>
+        <div class="container-fluid row" style="padding: 0px; min-height: 710px;"
+             data-bind="template: { name: 'course-item', foreach: courses }">
+        </div>
+        <!-- ko if: paging.totalPages() > 1 -->
+        <div class="row text-center">
+            <ul class="pagination">
+                <li data-bind="css: {disabled: paging.pageNumber() == 0}">
+                    <!-- ko ifnot: paging.pageNumber() == 0 -->
+                    <a href="javascript:;" data-bind="click: $root.loadCourse.bind($root, 0)">
+                        <i class="fa fa-angle-double-left"></i>
+                    </a>
+                    <!-- /ko -->
+                    <!-- ko if: paging.pageNumber() == 0 -->
+                    <a href="javascript: void(0);">
+                        <i class="fa fa-angle-double-left"></i>
+                    </a>
+                    <!-- /ko -->
+                </li>
+                <li data-bind="css: {disabled: paging.prevPage()==null}">
+                    <!-- ko ifnot: paging.prevPage()==null -->
+                    <a href="javascript:;" data-bind="click: $root.loadCourse.bind($root,paging.prevPage())">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <!-- /ko -->
+                    <!-- ko if: paging.prevPage()==null -->
+                    <a href="javascript:void(0);">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <!-- /ko -->
+                </li>
+                <li>
+                        <span style="cursor: default;">
+                            <span data-bind="text: paging.pageNumber() + 1"></span>
+                            /
+                            <span data-bind="text: paging.totalPages()"></span>
+                        </span>
+                </li>
+                <li data-bind="css: {disabled: paging.nextPage()==null}">
+                    <!-- ko ifnot: paging.nextPage()==null -->
+                    <a href="javascript:;" data-bind="click: $root.loadCourse.bind($root,paging.nextPage())">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                    <!-- /ko -->
+                    <!-- ko if: paging.nextPage()==null -->
+                    <a href="javascript:void(0);">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                    <!-- /ko -->
+                </li>
+                <li data-bind="css: {disabled: paging.pageNumber()==(paging.totalPages() - 1)}">
+                    <!-- ko ifnot: paging.pageNumber()==(paging.totalPages() - 1) -->
+                    <a href="javascript:;" data-bind="click: $root.loadCourse.bind($root, paging.totalPages() - 1)">
+                        <i class="fa fa-angle-double-right"></i>
+                    </a>
+                    <!-- /ko -->
+                    <!-- ko if: paging.pageNumber()==(paging.totalPages() - 1) -->
+                    <a href="javascript:void(0);">
+                        <i class="fa fa-angle-double-right"></i>
+                    </a>
+                    <!-- /ko -->
+                </li>
+            </ul>
+        </div>
+        <!-- /ko -->
+    </div>
+    <!-- Main body ends -->
+</div>
+<!-- Main content ends-->
+
+
+<script type="text/html" id="course-item">
+    <div class="col-md-6 col-sm-6 course-item">
+        <div class="panel panel-default">
+            <div class="panel-body media">
+                <a class="pull-left" href="javascript:;" data-bind="attr: { href: '#course-details/' + id() }">
+                    <img class="media-object course-img" data-bind="attr: {src: avatar()}">
+                </a>
+
+                <div class="media-body">
+                    <img class="flag-circle"
+                         alt="" data-bind="attr:{src: 'assets/img/lang-flag/' + langTeach() + '.png'}">
+                    <a href="javascript:;" data-bind="text: langTeach">Vietnamese</a>
+                    <h4 class="media-heading course-title">
+                        <a href="javascript:;" data-bind="text: name, attr: { href: '#course-details/' + id() }">
+                            Learn Basic Spanish
+                        </a>
+                    </h4>
+                    by
+                    <a href="javascript:;" data-bind="text: creatorName, attr:{href:'#profile/'+creatorName()}"
+                       class="course-author">
+                        Annoymous
+                    </a>
+
+                    <div class="btn-group btn-group-justified course-stats">
+                        <label class="btn btn-default">
+                            <i class="fa fa-user"></i>
+                            <span data-bind="text: numberOfStudent"></span>
+                        </label>
+                        <label class="btn btn-default star">
+                            <i class="fa fa-star"></i>
+                            <span data-bind="text: rating"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script type="text/html" id="course-item2">
+    <div class="col-md-4 col-sm-4 course-item">
+        <div class="panel panel-default">
+            <div class="panel-body media">
+                <a class="pull-left" href="javascript:;" data-bind="attr: { href: '#course-details/' + id() }">
+                    <img class="media-object course-img" data-bind="attr: {src: avatar()}">
+                </a>
+
+                <div class="media-body">
+                    <img class="flag-circle"
+                         alt="" data-bind="attr:{src: 'assets/img/lang-flag/' + langTeach() + '.png'}">
+                    <a href="javascript:;" data-bind="text: langTeach">Vietnamese</a>
+                    <h4 class="media-heading course-title">
+                        <a href="javascript:;" data-bind="text: name, attr: { href: '#course-details/' + id() }">
+                            Learn Basic Spanish
+                        </a>
+                    </h4>
+                    by
+                    <a href="javascript:;" data-bind="text: creatorName, attr:{href:'#profile/'+creatorName()}"
+                       class="course-author">
+                        Annoymous
+                    </a>
+
+                    <div class="btn-group btn-group-justified course-stats">
+                        <label class="btn btn-default">
+                            <i class="fa fa-user"></i>
+                            <span data-bind="text: numberOfStudent"></span>
+                        </label>
+                        <label class="btn btn-default star">
+                            <i class="fa fa-star"></i>
+                            <span data-bind="text: rating"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
+</session>

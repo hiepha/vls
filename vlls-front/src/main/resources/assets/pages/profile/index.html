@@ -1,0 +1,170 @@
+<session>
+    <nav class="navbar header-element header" role="navigation" data-bind="with: profile">
+        <div class="inner span12 clearfix profile">
+            <div class="row">
+                <div class="col-md-3" style="padding: 22px 22px 0px 22px;">
+                    <div class="avatar-wrap thumbnail" style="margin-bottom: 10px; width: 199px; height: 199px;">
+                        <img data-bind="attr: {src: (avatar() != null && avatar() != '') ? avatar() : 'assets/img/avatar.jpg'} "
+                             style="width: 189px; height: 189px;"/>
+                    </div>
+                    <div class="text-center">
+                        <!-- ko if: friendStatus() == 'NOT_FRIEND' -->
+                        <button type="button" class="btn btn-default"
+                                data-bind="click: $root.sendFriendRequest">
+                            <i class="fa fa-plus"></i>
+                            Add friend
+                        </button>
+                        <!-- /ko -->
+                        <!-- ko if: friendStatus() == 'FRIEND' -->
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                                    aria-expanded="false">
+                                <i class="fa fa-check"></i> Friend <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li>
+                                    <a href="javascript:;" data-bind="click: $root.cancelFriend">
+                                        <i class="fa fa-times"></i> Unfriend
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- /ko -->
+                        <!-- ko if: friendStatus() == 'REQUEST_SENT' -->
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                                    aria-expanded="false">
+                                <i class="fa fa-envelope-o"></i> Friend request sent <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li>
+                                    <a href="javascript:;" data-bind="click: $root.cancelFriend">
+                                        <i class="fa fa-times"></i> Cancel friend request
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- /ko -->
+                        <!-- ko if: friendStatus() == 'CONFIRM_WAITING' -->
+                        <button type="button" class="btn btn-default"
+                                data-bind="click: $root.acceptFriendRequest">
+                            Confirm friend request
+                        </button>
+                        <!-- /ko -->
+                    </div>
+                    <!-- ko if: name() != $root.user.name() -->
+                    <div class="text-center" style="margin-bottom: 10px; margin-top: 5px;">
+                        <button class="btn btn-default"data-bind="click: $root.sendMessage">
+                            Send message
+                        </button>
+                    </div>
+                    <!-- /ko -->
+                </div>
+                <style>
+                    hr.clear {
+                        margin-right: 15px;
+                        /*border-color: rgba(5, 64, 95, 0.5);*/
+                        box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.2);
+                    }
+                </style>
+                <div class="col-main col-md-9">
+                    <div class="row">
+                        <div class="user-details">
+                            <div class="col-md-12">
+                                <h2 style="padding-right: 15px;">
+                                    <strong data-bind="text: name">New User</strong>
+                                    <!-- ko if: $root.isCurUser() -->
+                                    <button class="btn btn-default pull-right" onclick="location.href = '#settings'">
+                                        <span class="fa fa-pencil"></span>
+                                        Edit Profile
+                                    </button>
+                                    <!-- /ko -->
+                                </h2>
+                                <hr class="clear"/>
+                                <h4 style="max-width: 85%">
+                                    <!-- ko if: bio() != '' -->
+                                    <div data-bind="text: bio" style="max-width: 94%; display: inline-block;"></div>
+                                    <!-- /ko -->
+                                    <!-- ko if: bio() == '' -->
+                                    <div style="max-width: 94%; display: inline-block;">
+                                        <!-- ko if: $root.isCurUser() -->
+                                        <a href="#settings">
+                                            <i class="fa fa-plus"></i>
+                                            Add a bio
+                                        </a>
+                                        <!-- /ko -->
+                                        <!-- ko ifnot: $root.isCurUser() -->
+                                        <em>
+                                            This user doesn't have a bio…
+                                        </em>
+                                        <!-- /ko -->
+                                    </div>
+                                    <!-- /ko -->
+                                </h4>
+                                <hr class="clear"/>
+                                <h3 style="line-height: 50px;">
+                                    <span style="margin-right: 50px">
+                                        <i class="fa fa-users"></i>
+                                        <span data-bind="text: $root.totalFriends()"></span>
+                                        <span style="font-size: 20px;">
+                                        <!-- ko if: $root.totalFriends() > 1 -->
+                                        Friends
+                                        <!-- /ko -->
+                                        <!-- ko ifnot: $root.totalFriends() > 1 -->
+                                        Friend
+                                        <!-- /ko -->
+                                        </span>
+                                    </span>
+                                    <span style="margin-right: 50px">
+                                        <i class="fa fa-star"></i>
+                                        <span data-bind="text: $root.totalItems()"></span>
+                                        <span style="font-size: 20px;">
+                                        <!-- ko if: $root.totalItems() > 1 -->
+                                        Items
+                                        <!-- /ko -->
+                                        <!-- ko ifnot: $root.totalItems() > 1 -->
+                                        Item
+                                        <!-- /ko -->
+                                        </span>
+                                    </span>
+                                    <span style="margin-right: 50px">
+                                        <i class="fa fa-trophy"></i>
+                                        <span data-bind="text: point"></span>
+                                        <span style="font-size: 20px;">
+                                        <!-- ko if: point() > 1 -->
+                                        Points
+                                        <!-- /ko -->
+                                        <!-- ko ifnot: point() > 1 -->
+                                        Point
+                                        <!-- /ko -->
+                                        </span>
+                                    </span>
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <nav class="navbar header-element page-title" role="navigation">
+        <div class="container-fluid">
+            <div class="collapse navbar-collapse">
+                <form class="nav nav-pills navbar-right" data-bind="foreach: router.navigationModel">
+                    <!-- ko if: $root.excludeRoutes.indexOf(title) < 0 -->
+                    <li data-bind="css: { active: isActive }">
+                        <a href="javascript:;"
+                           data-bind="attr: { href: '#profile/' + $root.profile.name() + '/' + hashId }">
+                            <strong>
+                                <i data-bind="css: icon"></i>
+                                <span data-bind="text: title"></span>
+                            </strong>
+                        </a>
+                    </li>
+                    <!-- /ko -->
+                </form>
+            </div>
+        </div>
+    </nav>
+    <div class="profile" data-bind="router"></div>
+</session>

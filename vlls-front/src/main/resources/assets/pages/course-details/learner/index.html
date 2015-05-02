@@ -1,0 +1,322 @@
+<session>
+<!-- Main content -->
+<div class="row">
+    <!-- Left sidebar -->
+    <!-- Left sidebar ends -->
+    <style>
+        .course-item {
+            padding-left: 5px;
+            padding-right: 5px;
+        }
+
+        .course-item .course-img {
+            width: 60px;
+            height: 60px;
+        }
+
+        .panel.creator {
+            border: 2px solid #3571C0;
+        }
+
+        .panel.creator > .panel-body {
+            padding: 14px;
+        }
+
+        /*.course-item .course-title {*/
+        /*width: 80px;*/
+        /*display: inline-block;*/
+        /*}*/
+
+        .course-item .course-title a {
+            color: #2a6496;
+            text-decoration: underline;
+        }
+
+        .course-item.link a:hover {
+            text-decoration: none;
+        }
+
+        .course-item.link .panel:hover {
+            box-shadow: 0 0 10px #888888;
+        }
+
+        .course-item.link.selected .panel {
+            border: 3px solid rgb(255, 116, 0);
+        }
+
+        .course-item.link.selected .panel:hover {
+            box-shadow: none;
+            text-decoration: none;
+        }
+
+        .course-item.link.selected .panel-body {
+            padding: 13px;
+        }
+    </style>
+    <!-- Main body -->
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4>
+                    <i class="fa fa-users"></i>
+                    Learners
+                </h4>
+            </div>
+            <!-- ko if: learners().length > 0 -->
+            <div class="panel-body" style="padding-bottom: 5px;">
+                <div class="container-fluid row" style="margin-left: auto; margin-right: auto;margin: 0px -5px;">
+                    <!-- ko foreach: learners -->
+                    <div class="col-md-4 course-item">
+                        <div class="panel panel-default" data-bind="css: {'creator': id() == $root.user.id()}">
+                            <div class="panel-body media">
+                                    <span class="pull-left">
+                                        <a href="javascript:;" data-bind="attr: {href: '#profile/' + name()}">
+                                            <img class="media-object course-img"
+                                                 data-bind="attr: {src: (avatar() != null && avatar() != '') ? avatar() : 'assets/img/avatar.jpg'}">
+                                        </a>
+                                    </span>
+
+                                <div class="media-body">
+                                    <h4 class="media-heading course-title col-md-6" style="padding: 0;">
+                                        <a href="javascript:;"
+                                           data-bind="attr: {href: '#profile/' + name()}, text: name"
+                                           style="color: #2a6496; text-decoration: underline; white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">
+                                        </a>
+                                    </h4>
+                                    <!-- ko if: id() == $root.user.id() -->
+                                    <a class="btn btn-xs btn-info col-md-6" style="padding-left: 5px;"
+                                       data-bind="attr: {href: '#course-details/' + $root.course.id() + '/statistics'}">
+                                        <i class="glyphicon glyphicon-stats"></i>
+                                        Statistic
+                                    </a>
+                                    <!-- /ko -->
+                                    <!-- ko if: id() != $root.user.id() -->
+                                    <a class="btn btn-xs btn-info col-md-6" style="padding-left: 5px;"
+                                       data-bind="attr: {href: '#profile/' + name()}, click: $root.loadStatistic.bind($root, id(), name())"
+                                       data-toggle="modal"
+                                       data-target=".statistic-modal">
+                                        <i class="glyphicon glyphicon-stats"></i>
+                                        Statistic
+                                    </a>
+                                    <!-- /ko -->
+
+                                    <div class="progress col-md-12 well" style="margin: 10px 0 0 0; padding: 0">
+                                        <!-- ko if: learningProgress() != null -->
+                                        <div class="progress-bar progress-bar-warning" role="progressbar"
+                                             data-bind="style: {'width': learningProgress() + '%'}">
+                                            <!-- ko if: learningProgress() > 0 -->
+                                            <span data-bind="text: learningProgress() + '%'">60% Complete</span>
+                                            <!-- /ko -->
+                                        </div>
+                                        <!-- /ko -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /ko -->
+                </div>
+                <div class="panel-footer">
+                    <div class="container-fluid row text-center"
+                         style="margin-left: auto; margin-right: auto;margin: 0px -5px;">
+                        <ul class="pagination" style="margin: 0;">
+                            <li data-bind="css: {disabled: paging.pageNumber() == 0}">
+                                <a href="javascript:;"
+                                   data-bind="click: $root.loadLearners.bind($root,0)">
+                                    <i class="fa fa-angle-double-left"></i>
+                                </a>
+                            </li>
+                            <li data-bind="css: {disabled:!paging.prevPage()}">
+                                <a href="javascript:;"
+                                   data-bind="click: $root.loadLearners.bind($root,paging.prevPage())">
+                                    <i class="fa fa-angle-left"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript: void(0)" style="cursor: default;">
+                                    <span data-bind="text: paging.pageNumber() + 1"></span>
+                                    /
+                                    <span data-bind="text: paging.totalPages()"></span>
+                                </a>
+                            </li>
+                            <li data-bind="css: {disabled:!paging.nextPage()}">
+                                <a href="javascript:;"
+                                   data-bind="click: $root.loadLearners.bind($root,paging.nextPage())">
+                                    <i class="fa fa-angle-right"></i>
+                                </a>
+                            </li>
+                            <li data-bind="css: {disabled:paging.pageNumber() == (paging.totalPages() - 1)}">
+                                <a href="javascript:;"
+                                   data-bind="click: $root.loadLearners.bind($root,paging.totalPages() - 1)">
+                                    <i class="fa fa-angle-double-right"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- /ko -->
+            <!-- ko if: learners().length == 0-->
+            <div class="panel-body">
+                <div class="alert alert-info text-center">
+                    There is any learner yet.
+                </div>
+            </div>
+            <!-- /ko -->
+
+        </div>
+    </div>
+</div>
+<!-- Main content ends-->
+<!-- Modal -->
+<div class="modal fade statistic-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog"
+         data-bind="css: {'modal-lg': $root.showDifficultChart() || $root.showItemChart() || $root.showQualityChart()}">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <!-- ko if: $root.displayCharts() -->
+                <h4 class="modal-title" style="display: inline-block;">
+                    <span data-bind="text: $root.selectedLearnerName()"></span>
+                    's statistic
+                </h4>
+                <!-- /ko -->
+                <!-- ko if: $root.displayCourses() -->
+                <h4 class="modal-title" style="display: inline-block;">
+                    Recommend a course for
+                    <span data-bind="text: $root.selectedLearnerName()"></span>
+                </h4>
+                <!-- /ko -->
+                <!-- ko if: $root.courses().length > 1 -->
+                <ul class="nav nav-pills pull-right" style="display: inline-block; margin: 0 260px 0 0;">
+                    <li data-bind="css: {'active': $root.displayCharts()}">
+                        <a href="#" data-bind="click: $root.showCharts.bind($root)" style="padding: 2.5px 15px;">Statistic</a>
+                    </li>
+                    <li data-bind="css: {'active': $root.displayCourses()}">
+                        <a href="#" data-bind="click: $root.showCourses.bind($root)" style="padding: 2.5px 15px;">Recommend
+                            course</a>
+                    </li>
+                </ul>
+                <!-- /ko -->
+            </div>
+            <div class="modal-body" data-bind="css: {'hide' : $root.displayCourses()}">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <strong>Learning progress</strong>
+                            </div>
+                            <div class="panel-body">
+                                <div class="col-md-7 text-center">
+                                    <canvas width="200" height="200" class="learn-chart"
+                                            id="itemChart">
+                                    </canvas>
+                                </div>
+                                <div class="col-md-5">
+                                    <p>
+                                        <span class="green"><i class="fa fa-square"></i></span>
+                                        Learned items
+                                    </p>
+
+                                    <p>
+                                        <span class="blue"><i class="fa fa-square"></i></span>
+                                        Learning items
+                                    </p>
+
+                                    <p>
+                                        <span class="yellow"><i class="fa fa-square"></i></span>
+                                        Remaining items
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <strong>Points acquired</strong>
+                            </div>
+                            <div class="panel-body">
+                                <div class="col-md-7 text-center">
+                                    <canvas width="200" height="200" class="learn-chart"
+                                            id="qualityChart">
+                                    </canvas>
+                                </div>
+                                <div class="col-md-5">
+                                    <p>
+                                        <span class="green"><i class="fa fa-square"></i></span>
+                                        Points
+                                    </p>
+
+                                    <p>
+                                        <span class="yellow"><i class="fa fa-square"></i></span>
+                                        Points to go
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <strong>Most difficult items</strong>
+                            </div>
+                            <div class="panel-body text-center">
+                                <div>
+                                    <canvas width="400" height="400" id="difficultChart"></canvas>
+                                </div>
+                                <div><i class="fa fa-arrows-h"></i> : Learning Item - <i class="fa fa-arrows-v"></i> :
+                                    Wrong Percent
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--<div class="col-md-12 text-center">-->
+                    <!--This user has not started learning yet.-->
+                    <!--</div>-->
+                </div>
+            </div>
+            <div class="modal-body" data-bind="css : {'hide' : $root.displayCharts()}">
+                <!-- ko if: $root.courses().length > 0 -->
+                <div class="alert" id="modalAlert"
+                     style="position: absolute;padding: 2px 10px;margin: 0;text-align: center;top: 7px;left: 25px;width: calc(100% - 50px); display: none;">
+                </div>
+                <div class="row" style="margin-top: 20px;">
+                    <div class="col-md-12">
+                        <!-- ko foreach: $root.courses -->
+                        <div class="col-md-3 course-item link"
+                             data-bind="css: {'selected' : $root.selectedCourse() == id()}">
+                            <a href="#" data-bind="click: $root.toggleSelectedCourse.bind($root, id(), name())"
+                               class="panel panel-default btn-block">
+                            <span class="panel-body media btn-block">
+                                <span class="pull-left" style="display: block;">
+                                    <img class="media-object course-img" data-bind="attr: {src: avatar()}"
+                                         style="width: 40px; height: 40px;">
+                                </span>
+
+                                <span class="media-body" style="display: block;">
+                                    <img class="flag-circle"
+                                         style="width: 16px;"
+                                         data-bind="attr:{src: 'assets/img/lang-flag/' + langTeach() + '.png'}">
+                                    <span data-bind="text: langTeach"></span>
+                                    <span class="media-heading course-title btn-block"
+                                          style="font-size: 18px; line-height: 18px;"
+                                          data-bind="text: name">
+                                    </span>
+                                </span>
+                            </span>
+                            </a>
+                        </div>
+                        <!-- /ko -->
+                    </div>
+                </div>
+                <!-- /ko -->
+            </div>
+        </div>
+    </div>
+</div>
+</session>

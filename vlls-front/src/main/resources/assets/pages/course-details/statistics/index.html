@@ -1,0 +1,84 @@
+<session>
+<!-- Main content -->
+<div class="row">
+    <!-- Left sidebar -->
+    <!-- Left sidebar ends -->
+
+    <!-- Main body -->
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <strong>How is your learning progress</strong>
+            </div>
+            <div class="panel-body">
+                <div class="col-md-7 text-center">
+                    <canvas width="200" height="200" class="learn-chart"
+                            id="itemChart">
+                    </canvas>
+                </div>
+                <div class="col-md-5">
+                    <p>
+                        <span class="green"><i class="fa fa-square"></i></span>
+                        Learned items
+                    </p>
+                    <p>
+                        <span class="blue"><i class="fa fa-square"></i></span>
+                        Learning items
+                    </p>
+                    <p>
+                        <span class="yellow"><i class="fa fa-square"></i></span>
+                        Remaining items
+                    </p>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <p>This graph shows the progress of items you are learning.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <strong>How well you remember the items</strong>
+            </div>
+            <div class="panel-body">
+                <div class="col-md-7 text-center">
+                    <canvas width="200" height="200" class="learn-chart"
+                            id="qualityChart">
+                    </canvas>
+                </div>
+                <div class="col-md-5">
+                    <p>
+                        <span class="green"><i class="fa fa-square"></i></span>
+                        Points
+                    </p>
+                    <p>
+                        <span class="yellow"><i class="fa fa-square"></i></span>
+                        Points to go
+                    </p>
+                </div>
+            </div>
+            <div class="panel-footer">
+                This graph shows how well you remember all the items in course,
+                calculated by item points which is gained each time you answer a question.
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <strong>Items you answer wrong the most</strong>
+            </div>
+            <div class="panel-body text-center">
+                <div><canvas width="400" height="400" id="difficultChart"></canvas></div>
+                <div><i class="fa fa-arrows-h"></i> : Learning Item - <i class="fa fa-arrows-v"></i> : Wrong Percent</div>
+            </div>
+            <div class="panel-footer">
+                This graph shows the items that you answer wrong the most.<br/>
+                The Wrong Percent is calculated by: (number of wrong answers) / (total answers) x 100
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Main content ends-->
+</session>

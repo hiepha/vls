@@ -1,0 +1,65 @@
+<session>
+
+    <!-- Header info -->
+    <nav class="navbar header-element page-title" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <span class="navbar-brand">
+                    <strong>
+                        <i class="fa fa-sign-in"></i>
+                        Login
+                    </strong>
+                </span>
+            </div>
+        </div>
+    </nav>
+    <!-- Header info ends -->
+
+    <!-- Main content -->
+    <div class="row">
+
+        <!-- Main body -->
+        <div class="col-md-6 col-md-offset-3">
+            <div class="panel panel-default main-body">
+                <div class="panel-body">
+                    <form class="form-horizontal" role="form" data-bind="validate: {submitHandler: $root.login.bind($root)}">
+                        <div class="form-group">
+                            <div class="col-md-4" align="right">
+                                <label for="inputUsername">Username</label>
+                            </div>
+                            <div class="col-md-6" align="left">
+                                <input class="form-control" id="inputUsername" name="username"
+                                        data-bind="value: username" data-rule-required="true">
+                            </div>
+                            <div class="col-md-2" align="right">
+                                &nbsp;
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-4" align="right">
+                                <label for="inputPassword">Password</label>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="password" class="form-control" id="inputPassword"
+                                        data-bind="value: password" data-rule-required="true">
+                            </div>
+                            <div class="col-md-2" align="right">
+                                &nbsp;
+                            </div>
+                        </div>
+
+                        <div class="form-group" align="center">
+                            <button type="submit" class="btn btn-success">
+                                <i class="fa fa-sign-in"></i>
+                                Login
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- Main body ends -->
+    </div>
+    <!-- Main content ends-->
+</session>

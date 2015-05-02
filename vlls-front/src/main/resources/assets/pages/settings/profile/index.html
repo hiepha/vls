@@ -1,0 +1,122 @@
+<session>
+
+    <!-- Main content -->
+    <div class="row" data-bind="with: user">
+
+        <!-- Left sidebar -->
+        <div class="col-md-4">
+            <div class="panel panel-default main-body">
+                <div class="panel-body">
+                    <!--<form class="form-horizontal" role="form">-->
+                    <div class="inner sidebar">
+                        <div data-role="photo-upload-trigger"
+                             class="photo-upload-trigger thumbnail thumbnail-block whitebox">
+                            <img data-bind="attr:{src: $root.avatar()}" style="width: 241px; height: 241px;">
+
+                            <div class="hover-icon">
+                                <span class="ico ico-edit ico-l ico-white"></span>
+                            </div>
+                        </div>
+                        <!--<form data-bind="submit: $root.uploadAva.bind($root,$element)" class=" text-center">-->
+                        <div class="form-group text-center">
+                                <span class="btn btn-default fileinput-button" style="max-width: 100%;">
+                                    <i class="fa fa-file"></i>
+                                    <span data-bind="if: $root.file() == null">Choose picture</span>
+                                    <!-- ko if: $root.file() != null -->
+                                    <span data-bind="text: $root.file().name"
+                                          style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis; max-width: 100%;"></span>
+                                    <!-- /ko -->
+                                    <input type="file" name="file"
+                                           data-bind="event: {change: $root.readURL.bind($root, $element)}"/>
+                                </span>
+                            <input data-bind="value: $root.avaRealName" type="hidden" name="name">
+                        </div>
+                        <div class="form-group text-center" data-bind="if: $root.file()">
+                            <button type="submit" class="btn btn-success"
+                                    data-bind="click: $root.uploadAva.bind($root)">
+                                <i class="fa fa-upload"></i>
+                                Upload
+                            </button>
+                        </div>
+                        <!--</form>-->
+                        <br>
+                        <a data-bind="attr: {href: '#profile/' + $root.user.name()}" class="btn btn-info btn-block">
+                            <i class="fa fa-user"></i>
+                            View profile
+                        </a>
+
+                    </div>
+                    <!--</form>-->
+                </div>
+            </div>
+        </div>
+        <!-- Left sidebar ends -->
+
+        <!-- Main body -->
+        <div class="col-md-8" data-bind="with: $root.user">
+            <div class="panel panel-default main-body">
+                <div class="panel-body">
+                    <form class="form-horizontal" role="form"
+                          data-bind="submit: $root.saveProfile.bind($root,$element)">
+                        <!--<div class="form-group">-->
+                        <!--<div class="col-md-4" align="right">-->
+                        <!--<label for="inputUsername">Username</label>-->
+                        <!--</div>-->
+                        <!--<div class="col-md-6" align="left">-->
+                        <!--<input type="text" class="form-control" id="inputUsername" data-bind="value: name">-->
+                        <!--</div>-->
+                        <!--</div>-->
+                        <div class="form-group">
+                            <div class="col-md-4" align="right">
+                                <label for="inputFirstname">Firstname</label>
+                            </div>
+                            <div class="col-md-6" align="left">
+                                <input type="text" class="form-control" id="inputFirstname"
+                                       data-bind="value: firstName">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-4" align="right">
+                                <label for="inputLastname">Lastname</label>
+                            </div>
+                            <div class="col-md-6" align="left">
+                                <input type="text" class="form-control" id="inputLastname"
+                                       data-bind="value: lastName">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-4" align="right">
+                                <label for="inputEmail">Email</label>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="email" class="form-control" id="inputEmail" data-bind="value: email">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-4" align="right">
+                                <label>Bio</label>
+                            </div>
+                            <div class="col-md-6">
+                                <textarea class="form-control" cols="40" id="id_bio" rows="10"
+                                          data-bind="value: bio"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group" align="center">
+                            <button type="submit" class="btn btn-success btn-lg">
+                                <i class="fa fa-check"></i>
+                                Save
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- Main body ends -->
+
+
+    </div>
+    <!-- Main content ends-->
+</session>

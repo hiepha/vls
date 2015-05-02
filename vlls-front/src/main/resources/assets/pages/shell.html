@@ -1,0 +1,272 @@
+<section>
+
+<!-- Header -->
+<!-- ko if: hasHeader() -->
+<nav class="navbar header header-element" role="navigation"
+     style="border-radius: 0px; margin-bottom: 1px;">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#header_body">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#" style="height: auto;">
+                <img src="assets/img/logo-small.png" height="40px"/>
+            </a>
+        </div>
+        <div class="collapse navbar-collapse" id="header_body">
+            <ul class="nav navbar-nav navbar-right" style="margin-top: 11px;">
+                <li>
+                    <a href="#course" style="font-size: 17px;">
+                        <strong>
+                            <i class="fa fa-th-large"></i>
+                            Course
+                        </strong>
+                    </a>
+                </li>
+                <!-- ko if: !user.name() -->
+                <li>
+                    <a href="#register" style="font-size: 17px;">
+                        <strong>
+                            <i class="fa fa-users"></i>
+                            Register
+                        </strong>
+                    </a>
+                </li>
+                <li>
+                    <a href="#login" style="font-size: 17px;"
+                       data-bind="attr:{href:'#login?hr='+
+                                ((['login', 'register'].indexOf(router.activeInstruction().fragment) >= 0)?'':router.activeInstruction().fragment)}">
+                        <strong>
+                            <i class="fa fa-sign-in"></i>
+                            Login
+                        </strong>
+                    </a>
+                </li>
+                <!-- /ko -->
+                <!-- ko if: user.name() -->
+                <li>
+                    <a href="#create-course" style="font-size: 17px;">
+                        <strong>
+                            <i class="fa fa-plus-circle"></i>
+                            Create
+                        </strong>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:;" style="font-size: 17px;" data-toggle="dropdown">
+                        <strong>
+                            <i class="fa fa-globe"></i>
+                            Notification
+                            <!-- ko if: (notifications().length > 0 || notices().length > 0 || recommendedCourses().length > 0) -->
+                            <span class="badge background-red"
+                                  data-bind="text: (notifications().length + notices().length + recommendedCourses().length)"></span>
+                            <!-- /ko -->
+                        </strong>
+                    </a>
+                    <ul class="dropdown-menu notification" role="menu" style="font-size: 17px">
+
+                        <!-- ko foreach: notifications -->
+                        <li>
+                            <a href="javascript:;" target="_blank" data-bind="
+                                    click: $root.navigateNotification.bind($root, (type() == 'REVISION') ? ('learn.html#revise/' + learningCourseId()) :
+                                          ((type() == 'FRIEND_PENDING') ? ('#profile/' + author()) : 'javascript:;'))">
+                                <div class="media" style="min-width: 230px;">
+                                        <span class="pull-left">
+                                            <img class="media-object" src="assets/img/avatar/thongvh.png" alt=""
+                                                 style="height: 45px; width: 45px;"
+                                                 data-bind="attr:{src: image}">
+                                        </span>
+
+                                    <div class="media-body">
+                                        <h5 class="media-heading"
+                                            style="color: black; margin-top: 2px; margin-bottom: 0;"
+                                            data-bind="text: header">
+                                        </h5>
+                                        <span style="white-space: normal; font-size: 14px;"
+                                              data-bind="text: message"></span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <!-- /ko -->
+                        <!-- ko foreach: recommendedCourses -->
+                        <li>
+                            <a href="javascript:;" target="_blank"
+                               data-bind="click: $root.viewRecommendedCourse.bind($root, learningCourseId())">
+                                <div class="media" style="min-width: 230px;">
+                                        <span class="pull-left">
+                                            <img class="media-object" src="assets/img/avatar/thongvh.png" alt=""
+                                                 style="height: 45px; width: 45px;"
+                                                 data-bind="attr:{src: image}">
+                                        </span>
+
+                                    <div class="media-body">
+                                        <h5 class="media-heading"
+                                            style="color: black; margin-top: 2px; margin-bottom: 0;"
+                                            data-bind="text: header">
+                                        </h5>
+                                        <span style="white-space: normal; font-size: 14px;"
+                                              data-bind="text: message"></span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <!-- /ko -->
+                        <!-- ko if: notifications().length > 0 && notices().length > 0 -->
+                        <!--<li class="divider" style="padding: 0; border: none;"></li>-->
+                        <!-- /ko -->
+                        <!-- ko foreach: notices -->
+                        <li style="font-size: 14px; border: none; white-space: nowrap;" data-bind="text: message">
+                        </li>
+                        <!-- /ko -->
+                        <!-- ko if: notices().length > 0-->
+                        <li class="text-center"
+                            style="font-size: 16px; border: none; white-space: nowrap; font-weight: bold;">
+                            <a href="javascript:;" target="_blank" style="text-decoration: none; margin-top: 10px;"
+                               data-bind="click: $root.clearNotices.bind($root)">
+                                <strong>
+                                    <i class="glyphicon glyphicon-trash"></i>
+                                    Clear all
+                                </strong>
+                            </a>
+                        </li>
+                        <!-- /ko -->
+                        <!-- ko if: notifications().length == 0 && notices().length == 0 && recommendedCourses().length == 0 -->
+                        <li>
+                            <p style="color: #000000;">No notification</p>
+                        </li>
+                        <!-- /ko -->
+
+                        <!--<li>-->
+                        <!--<a href="#profile/thongvh">-->
+                        <!--<div class="media" style="min-width: 250px;">-->
+                        <!--<span class="pull-left">-->
+                        <!--<img class="media-object" src="assets/img/avatar/course40.jpg" alt="" style="height: 45px; width: 45px;">-->
+                        <!--</span>-->
+                        <!--<div class="media-body">-->
+                        <!--<h4 class="media-heading" style="color: black;">Everyday actions</h4>-->
+                        <!--<span style="white-space: normal; font-size: 14px;">5 items are ready to revise</span>-->
+                        <!--</div>-->
+                        <!--</div>-->
+                        <!--</a>-->
+                        <!--</li>-->
+
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:;" style="font-size: 17px; padding: 0px" data-toggle="dropdown">
+                        <span class="thumbnail" style="margin-bottom: 0px">
+                            <img src="assets/img/avatar/unknown_user.png" style="width: 40px; height: 40px"
+                                 data-bind="attr:{src:user.avatar()}">
+                        </span>
+                    </a>
+                    <ul class="dropdown-menu" role="menu" style="font-size: 17px">
+
+                        <li>
+                            <a data-bind="attr: {href: '#profile/' + user.name()}">
+                                <i class="fa fa-user"></i>
+                                Profile
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#settings">
+                                <i class="fa fa-cogs"></i>
+                                Settings
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="javascript:;" data-bind="click: logout">
+                                <i class="fa fa-sign-out"></i>
+                                Logout
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
+                <!-- /ko -->
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- /ko -->
+<!-- Header ends -->
+
+<div class="page-host" data-bind="router"></div>
+
+<!-- Footer -->
+<!-- ko if: hasFooter() -->
+<div class="footer ">
+    <!--<div class="container-fluid">-->
+    <!--<div class="col-md-3">-->
+    <!--<h3>VLLS</h3>-->
+    <!--<ul>-->
+    <!--<li>-->
+    <!--<a href="#">Home</a>-->
+    <!--</li>-->
+    <!--<li>-->
+    <!--<a href="#">Courses</a>-->
+    <!--</li>-->
+    <!--<li>-->
+    <!--<a href="#">Dashboard</a>-->
+    <!--</li>-->
+    <!--</ul>-->
+    <!--</div>-->
+    <!--<div class="col-md-3">-->
+    <!--<h3>About</h3>-->
+    <!--<ul>-->
+    <!--<li>-->
+    <!--<a href="#">About Us</a>-->
+    <!--</li>-->
+    <!--<li>-->
+    <!--<a href="#">Privacy Policy</a>-->
+    <!--</li>-->
+    <!--<li>-->
+    <!--<a href="#">Terms of Service</a>-->
+    <!--</li>-->
+    <!--</ul>-->
+    <!--</div>-->
+    <!--<div class="col-md-3">-->
+    <!--<h3>Category</h3>-->
+    <!--<ul>-->
+    <!--<li>-->
+    <!--<a href="#">Art</a>-->
+    <!--</li>-->
+    <!--<li>-->
+    <!--<a href="#">Design</a>-->
+    <!--</li>-->
+    <!--<li>-->
+    <!--<a href="#">Business</a>-->
+    <!--</li>-->
+    <!--</ul>-->
+    <!--</div>-->
+    <!--<div class="col-md-3">-->
+    <!--<h3>Follow</h3>-->
+    <!--<ul>-->
+    <!--<li>-->
+    <!--<a href="#">-->
+    <!--<i class="fa fa-facebook"></i>-->
+    <!--Facebook-->
+    <!--</a>-->
+    <!--</li>-->
+    <!--<li>-->
+    <!--<a href="#">-->
+    <!--<i class="fa fa-google-plus"></i>-->
+    <!--Google Plus-->
+    <!--</a>-->
+    <!--</li>-->
+    <!--</ul>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--<hr/>-->
+    <h5 class="text-center">
+        Copyright © 2014 VLLS All Rights Reserved
+    </h5>
+</div>
+<!-- /ko -->
+<!-- Footer ends -->
+</section>

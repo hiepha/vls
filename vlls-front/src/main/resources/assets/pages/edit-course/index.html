@@ -1,0 +1,90 @@
+<session>
+
+    <!-- Header middle -->
+    <nav class="navbar header-element header header-middle" role="navigation" style="padding: 15px;"
+         data-bind="with: course">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="thumbnail col-md-2" style="margin-bottom: 0px" href="javascript:;"
+                     data-bind="attr:{href:'#course-details/' + id() + '?resetData=true'}">
+                    <img src="assets/img/66180_Capitals_Icon.jpg" data-bind="attr:{src:avatar()}"
+                         style="width: 136px;height: 136px;">
+                </div>
+
+                <div class="col-md-6">
+                    <h4>
+                        <strong>
+                            <a data-bind="text: name,attr:{href:'#course-details/' + id() + '?resetData=true'}"></a>
+                        </strong>
+                    </h4>
+
+                    <div data-bind="if: createdDate() != null && createdDate() != ''">
+                        <label>Created on:</label>
+                        <span data-bind="text: createdDate"></span>
+                    </div>
+                    <div data-bind="if: lastUpdate() != null && lastUpdate() != ''">
+                        <label>Last update:</label>
+                        <span data-bind="text: lastUpdate"></span>
+                    </div>
+                </div>
+                <div class="col-md-3 pull-right">
+                    <div class="col-md-5">
+                        <a class="thumbnail" href="javascript:;" data-bind="attr:{href: '#profile/'+creatorName()}"
+                           style="margin-bottom: 0;">
+                            <img src="assets/img/simple-smoke-ava.png" data-bind="attr:{src: creatorAvatar()}" style="width:40px; height: 40px;">
+                        </a>
+                    </div>
+                    <div class="col-md-7">
+                        <label>
+                            Created by</label>
+                        <h4 style="margin-top: 0;"><a href="javascript:;" data-bind="text: creatorName,
+                        attr:{href:'#profile/'+creatorName()}">
+                            Somebody
+                        </a></h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- Header middle ends -->
+
+    <!-- Header info -->
+    <nav class="navbar header-element page-title" role="navigation">
+        <div class="container-fluid">
+            <strong class="navbar-brand">
+                <i class="fa fa-pencil-square-o"></i>
+                Edit Course
+            </strong>
+
+            <div class="collapse navbar-collapse">
+                <form class="nav nav-pills navbar-right" data-bind="foreach: router.navigationModel">
+                    <li data-bind="css: { active: isActive }">
+                        <a href="javascript:;"
+                           data-bind="attr: { href: '#edit-course/' + $root.course.id() + '/' + hashId }">
+                            <strong>
+                                <i data-bind="css: icon"></i>
+                                <span data-bind="text: title"></span>
+                            </strong>
+                        </a>
+                    </li>
+                </form>
+            </div>
+        </div>
+    </nav>
+    <!-- Header info ends -->
+
+    <!-- BEGIN ALERT -->
+    <div data-bind="fadeVisible: info()">
+        <div class="alert alert-info alert-dismissible fade in" role="alert">
+            <button type="button" class="close" data-bind="click: dismissInfo">
+                <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+            </button>
+            <strong><i class="fa fa-info-circle"></i></strong> <span data-bind="text: info"></span>
+        </div>
+    </div>
+    <!-- END ALERT -->
+
+    <!-- Main content -->
+    <div data-bind="router"></div>
+    <!-- Main content ends-->
+</session>

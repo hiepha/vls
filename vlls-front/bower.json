@@ -1,0 +1,25 @@
+{
+    "name": "vlls",
+    "version": "0.0.1-SNAPSHOT",
+    "dependencies": {
+        "jquery": "1.9.1",
+        "requirejs": "2.1.11",
+        "durandal": "2.1.0",
+        "bootstrap": "3.1.1",
+        "fontawesome": "4.2.0",
+        "select2": "3.4.5",
+        "jquery-migrate": "1.2.1",
+        "jquery-validation": "1.13.0",
+        "respond": null,
+        "ExplorerCanvas": null,
+        "knockout.js": "3.1.0",
+        "knockout-mapping": "2.4.1",
+        "jplayer": "2.7.1",
+        "metro-ui-css": "2.0.23",
+        "jquery-knob": null,
+        "chartjs": "1.0.1-beta.3",
+        "bootstrap-star-rating": "3.1.0",
+        "sockjs-client": null,
+        "stomp-websocket": null
+    }
+}

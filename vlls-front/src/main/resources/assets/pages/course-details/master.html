@@ -1,0 +1,141 @@
+<session>
+    <style>
+        .rating-xs {
+            font-size: 20px;
+        }
+
+        .course-rating .rating-xs {
+            font-size: 25px;
+            margin-bottom: 10px;
+        }
+
+        .rating-disabled {
+            cursor: default;
+        }
+
+        .star-rating {
+            display: inline-block;
+        }
+    </style>
+    <!-- Navbar Detail -->
+    <div class="navbar header-element header" role="navigation" style="margin-bottom: 1px;" data-bind="with: course">
+        <div class="container" style="width: 908px; margin-top: 15px;">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="thumbnail" style="width: 205px;
+                    /*height: 205px; */
+                    margin-bottom: 5px;">
+                        <img data-bind="attr: {src: avatar()}" src="" style="width: 195px;
+                        /*height: 195px;*/
+                        "/>
+                    </div>
+
+                    <div class="course-rating text-center">
+                        <input class="rating" data-bind="courseRating: {'rating': rating()}, value: rating()"/>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <ol class="breadcrumb">
+                        <li><a href="javascript:;">
+                            Teach
+                            <img class="flag-circle" src="" alt=""
+                                 data-bind="attr:{src: 'assets/img/lang-flag/' + langTeach() + '.png'}">
+                        </a></li>
+                        <li><a href="javascript:;">
+                            About
+                            <span data-bind="text: categoryName"></span>
+                        </a></li>
+                        <li><a href="javascript:;">
+                            For
+                            <img class="flag-circle" src="" alt=""
+                                 data-bind="attr:{src: 'assets/img/lang-flag/' + langSpeak() + '.png'}">
+                        </a></li>
+                    </ol>
+                    <hr style="margin-top: 10px; margin-bottom: 10px;"/>
+                    <h2 style="margin-top: 5px; margin-bottom: 5px">
+                        <label data-bind="text: name">Course's Name</label>
+                    </h2>
+
+                    <div class="row container-fluid" style="margin-bottom: 15px"
+                         data-bind="if: $root.user.isLogin() && $root.learningCourse.id() &&
+                            $root.learningCourse.id() > 0 && $root.user.id() != creatorId()">
+                        <label>Rate this course:</label>
+                        <input class="rating"
+                               data-bind="rating: {'rating': $root.learningCourse.rating()}, value: rating(), event: {change: $root.saveRating.bind($root, $element)}"/>
+                    </div>
+
+                    <p data-bind="text: description">This page is created to describe about course's detail</p>
+
+                    <div class="row container-fluid" style="margin-bottom: 10px"
+                         data-bind="if: $root.user.isLogin() && (!$root.learningCourse.id() || $root.learningCourse.id() < 0)">
+                        <button type="button" class="btn btn-success btn-lg"
+                                data-bind="click: $root.enroll.bind($root)">
+                            <i class="fa fa-graduation-cap"></i>
+                            Start Learning
+                        </button>
+                    </div>
+                </div>
+                <div class="col-md-3 row text-center">
+                    <div style="width: 55px; margin: 15px auto auto;">
+                        <a class="thumbnail" href="javascript:;" data-bind="attr:{href: '#profile/'+creatorName()}"
+                           style="margin-bottom: 0;">
+                            <img src="assets/img/simple-smoke-ava.png" data-bind="attr:{src: creatorAvatar()}"
+                                 style="width: 45px; height: 45px;">
+                        </a>
+                    </div>
+                    <div class="col-md-12" style="margin-top: 10px; margin-bottom: 10px; color: #ffffff">
+                        Created by <strong><a href="javascript:;" data-bind="text: creatorName,
+                        attr:{href:'#profile/'+creatorName()}">
+                        Somebody
+                    </a></strong>
+                        <!--<h4></h4>-->
+                    </div>
+                    <!--<div class="col-md-12" style="margin-bottom: 10px">-->
+                    <!--<div class="btn-group">-->
+                    <!--<a type="button" href="javascript:;" class="btn btn-default">Friend</a>-->
+                    <!--</div>-->
+                    <!--</div>-->
+
+                    <div class="col-md-12" data-bind="if: $root.user.id() == creatorId()">
+                        <a href="javascript:;" type="button" class="btn btn-default"
+                           data-bind="attr:{href:'#edit-course/' + id()}">
+                            <i class="fa fa-pencil"></i>
+                            Edit Course
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Navbar Detail ends -->
+
+    <!-- Header info -->
+    <nav class="navbar header-element page-title" role="navigation">
+        <div class="container-fluid">
+            <strong class="navbar-brand">
+                <i class="fa fa-list-ul"></i>
+                Course Details
+            </strong>
+
+            <div class="collapse navbar-collapse">
+                <form class="nav nav-pills navbar-right" data-bind="foreach: router.navigationModel">
+                    <!-- ko if: (($root.user.isLogin() && $root.learningCourse.id() > 0 && !creator) || !login || ($root.user.isLogin() && $root.user.id() == $root.course.creatorId() && creator)) -->
+                    <li data-bind="css: { active: isActive }">
+                        <a href="javascript:;"
+                           data-bind="attr: { href: '#course-details/' + $root.course.id() + '/' + hashId }">
+                            <strong>
+                                <i data-bind="css: icon"></i>
+                                <span data-bind="text: title"></span>
+                            </strong>
+                        </a>
+                    </li>
+                    <!-- /ko -->
+                </form>
+            </div>
+        </div>
+    </nav>
+    <!-- Header info ends -->
+
+    <div data-bind="router"></div>
+
+</session>

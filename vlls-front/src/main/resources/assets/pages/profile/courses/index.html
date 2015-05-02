@@ -1,0 +1,272 @@
+<session>
+<link href="assets/plugins/bootstrap-star-rating/css/star-rating.min.css" media="all" rel="stylesheet"
+      type="text/css"/>
+<style>
+    .course-item {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+</style>
+<div class="row content container-fluid">
+<div class="panel panel-default">
+<div class="container-fluid panel-heading">
+    <h3>
+        <strong>
+            <i class="fa fa-th-large"></i>
+            Courses
+        </strong>
+
+        <div class="btn-group btn-group-xs pull-right" style="margin: 0;">
+            <button class="btn"
+                    data-bind="css: {'btn-success': type() == 'learning', 'btn-default': type() != 'learning'},
+                        click: $root.loadCourses.bind($root, 'learning', 0)">
+                Learning
+            </button>
+            <button class="btn btn-default"
+                    data-bind="css: {'btn-success': type() == 'teaching', 'btn-default': type() != 'teaching'},
+                        click: $root.loadCourses.bind($root, 'teaching', 0)">
+                Teaching
+            </button>
+        </div>
+    </h3>
+</div>
+
+<!-- ko if: type() == 'learning' -->
+<!-- ko if: (!isCurUser() && courses().length == 0) || (isCurUser() && learningCourses().length == 0) -->
+<div class="container-fluid panel-body">
+    <div class="well text-center" style="height: 300px;padding-top: 100px;">
+        <h3>
+            <strong>No Courses :(</strong>
+
+            <p>
+            <h4>
+                You haven't enrolled in any courses yet.
+                <a href="#">Choose one</a>
+                .</h4>
+            </p>
+        </h3>
+    </div>
+</div>
+<!-- /ko -->
+<!-- /ko -->
+<!-- ko if: type() == 'teaching' && courses().length == 0  -->
+<div class="container-fluid panel-body">
+    <div class="well text-center" style="height: 300px;padding-top: 100px;">
+        <h3>
+            <strong>No Courses :(</strong>
+
+            <p>
+            <h4>You haven't created any (non-incomplete) courses yet. <a href="#">Create one</a>.</h4>
+            </p>
+        </h3>
+    </div>
+</div>
+<!-- /ko -->
+<!-- ko ifnot: isCurUser() && type() == 'learning' -->
+<!-- ko if: courses().length > 0 -->
+<div class="container-fluid panel-body"
+     style="margin-left: auto; margin-right: auto;margin: 0px 15px; width: 910px; height: 598px;">
+    <!-- ko foreach: courses -->
+    <div class="col-md-4 course-item">
+        <div class="panel panel-default">
+            <div class="panel-body media">
+                <a class="pull-left" href="#">
+                    <img class="media-object course-img" data-bind="attr: {src: avatar()}">
+                </a>
+
+                <div class="media-body">
+                    <img class="flag-circle"
+                         alt="" data-bind="attr:{src: 'assets/img/lang-flag/' + langTeach() + '.png'}">
+                    <a href="#" data-bind="text: langTeach">Vietnamese</a>
+                    <h4 class="media-heading course-title">
+                        <a href="javascript:;"
+                           data-bind="text: name, attr: { href: '#course-details/' + id() }">
+                            Learn Basic Spanish
+                        </a>
+                    </h4>
+                    by <a data-bind="text: creatorName, attr: {href: '#profile/' + creatorName()}"
+                          class="course-author">Annoymous</a>
+
+                    <div class="btn-group btn-group-justified course-stats">
+                        <!-- ko if: isPublic() == true -->
+                        <label class="btn btn-default">
+                            <i class="fa fa-user"></i>
+                            <span data-bind="text: numberOfStudent"></span>
+                        </label>
+                        <!-- ko if: rating() != null -->
+                        <label class="btn btn-default text-center">
+                            <i class="glyphicon glyphicon-star"
+                               style="color: rgb(255, 223, 0);-webkit-text-stroke: 1px #BEBE6A;"></i>
+                            <span data-bind="text: rating()"></span>
+                        </label>
+                        <!-- /ko -->
+                        <!-- /ko -->
+                        <!-- ko if: isPublic() == false -->
+                        <label class="btn btn-danger btn-private-course">
+                            <i class="fa fa-lock"></i>
+                        </label>
+                        <!-- /ko -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /ko -->
+</div>
+<!-- /ko -->
+<!-- /ko -->
+<!-- ko if: isCurUser() && type() == 'learning' && learningCourses().length > 0 -->
+<style>
+    .profile-learningCourse .course-img {
+        width: 60px;
+        height: 60px;
+        border-radius: 3px;
+    }
+
+    .profile-learningCourse .flag-circle {
+        background: #fff;
+        padding: 2px;
+        width: 20px;
+        border-top-right-radius: 8px;
+        position: absolute;
+        top: 60px;
+    }
+
+    .profile-learningCourse .media-body {
+        display: inline-block;
+    }
+
+    .profile-learningCourse .course-title {
+        font-weight: bold;
+        font-size: 20px;
+        color: #5b5b5b !important;
+        text-decoration: none !important;
+    }
+
+    .profile-learningCourse .controls .btn {
+        height: 52px;
+        padding: 0 20px
+    }
+</style>
+<div class="container-fluid row panel-body"
+     style="margin-left: auto; margin-right: auto;margin: 0px 15px; width: 910px; height: 625px;">
+    <!-- ko foreach: learningCourses -->
+    <div class="col-md-10 col-md-offset-1 profile-learningCourse">
+        <div class="panel panel-default">
+            <div class="panel-body media">
+                <a class="pull-left" href="#">
+                    <img class="media-object course-img" data-bind="attr: {src: course.avatar()}">
+                </a>
+
+                <div class="media-body" style="width: 45%">
+                    <div class="media-heading">
+                        <a href="javascript:;" class="course-title"
+                           data-bind="text: course.name(), attr: { href: '#course-details/' + course.id() }">
+                            Learn Basic Spanish
+                        </a>
+                        by <a data-bind="text: course.creatorName(), attr: {href: '#profile/' + course.creatorName()}"
+                              class="course-author">Annoymous</a>
+                    </div>
+                    <div class="progress" style="margin-bottom: 5px;">
+                        <div class="progress-bar progress-bar-warning" role="progressbar"
+                             aria-valuemin="0" aria-valuemax="100"
+                             data-bind="style: {width: (totalLearntItems() / totalItems() * 100) + '%'}, attr: {'aria-valuenow': (totalLearntItems() / totalItems() * 100)}">
+                                        <span data-bind="text: totalLearntItems() + '/' + totalItems()">
+                                        </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="media-body pull-right controls"
+                     style="height: 60px; padding-top: 4px">
+                    <a class="btn btn-success pull-right"
+                       data-bind="attr: {href: '#course-details/' + course.id()}"
+                       style="line-height: 52px;">
+                        <i class="glyphicon glyphicon-play"></i>
+                        View details
+                    </a>
+                    <!-- ko if: numOfReviseItem() != null && numOfReviseItem() != 0 -->
+                    <button class="btn btn-info pull-right" style="margin-right: 5px;">
+                        <i class="glyphicon glyphicon-book"></i>
+                        Revise (
+                        <span data-bind="text: numOfReviseItem"></span>
+                        )
+                    </button>
+                    <!-- /ko -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /ko -->
+</div>
+<!-- /ko -->
+<!-- ko if: paging.totalPages() > 1 -->
+<div class="container-fluid panel-footer">
+    <div class="container-fluid row text-center"
+         style="margin-left: auto; margin-right: auto;margin: 0px -5px;">
+        <ul class="pagination" style="margin: 0;">
+            <li data-bind="css: {disabled: paging.pageNumber() == 0}">
+                <!-- ko ifnot: paging.pageNumber() == 0 -->
+                <a href="javascript: void(0);"
+                   data-bind="click: $root.loadCourses.bind($root, $root.type(), 0)">
+                    <i class="fa fa-angle-double-left"></i>
+                </a>
+                <!-- /ko -->
+                <!-- ko if: paging.pageNumber() == 0 -->
+                <a href="javascript: void(0);">
+                    <i class="fa fa-angle-double-left"></i>
+                </a>
+                <!-- /ko -->
+            </li>
+            <li data-bind="css: {disabled: paging.prevPage() == null}">
+                <!-- ko ifnot: paging.prevPage() == null -->
+                <a href="javascript: void(0)"
+                   data-bind="click: $root.loadCourses.bind($root, $root.type(),paging.prevPage())">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                <!-- /ko -->
+                <!-- ko if: paging.prevPage() == null -->
+                <a href="javascript: void(0)">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                <!-- /ko -->
+            </li>
+            <li>
+                <span style="cursor: default;">
+                    <span data-bind="text: paging.pageNumber() + 1"></span>
+                    /
+                    <span data-bind="text: paging.totalPages()"></span>
+                </span>
+            </li>
+            <li data-bind="css: {disabled: paging.nextPage() == null}">
+                <!-- ko ifnot: paging.nextPage() == null -->
+                <a href="javascript: void(0)"
+                   data-bind="click: $root.loadCourses.bind($root, $root.type(),paging.nextPage())">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                <!-- /ko -->
+                <!-- ko if: paging.nextPage() == null -->
+                <a href="javascript: void(0)">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                <!-- /ko -->
+            </li>
+            <li data-bind="css: {disabled: paging.pageNumber()==(paging.totalPages() - 1)}">
+                <!-- ko ifnot: paging.pageNumber()==(paging.totalPages() - 1) -->
+                <a href="javascript: void(0);"
+                   data-bind="click: $root.loadCourses.bind($root, $root.type(),paging.totalPages() - 1)">
+                    <i class="fa fa-angle-double-right"></i>
+                </a>
+                <!-- /ko -->
+                <!-- ko if: paging.pageNumber()==(paging.totalPages() - 1) -->
+                <a href="javascript: void(0);">
+                    <i class="fa fa-angle-double-right"></i>
+                </a>
+                <!-- /ko -->
+            </li>
+        </ul>
+    </div>
+</div>
+<!-- /ko -->
+</div>
+</div>
+</session>

@@ -1,0 +1,614 @@
+<session>
+<!-- BEGIN MODAL -->
+<div class="modal fade chooseImage" id="chooseImage" tabindex="-1" role="dialog" aria-labelledby="modelTitle"
+     aria-hidden="true">
+    <style>
+        .text-pic {
+            width: 425px;
+            text-align: left;
+            color: #fff;
+            background: #000;
+        }
+
+        .custom-nav-tabs {
+            position: absolute;
+            width: 758px;
+            height: 60px;
+            border-bottom: 1px solid #CBCBCB;
+            left: 18px;
+            z-index: 999;
+        }
+
+        .custom-nav-tabs .nav-tab {
+            display: inline-block;
+            margin-top: 10px;
+            padding-left: 15px;
+            padding-right: 15px;
+            height: 51px;
+            font-weight: bold;
+            line-height: 46px;
+            border: 1px solid #CBCBCB;
+            border-radius: 8px 8px 0 0;
+            text-align: center;
+            background: #fff;
+            cursor: pointer;
+        }
+
+        .custom-nav-tabs .nav-tab.active {
+            border-bottom-color: #fff;
+            height: 50px;
+            cursor: default;
+        }
+    </style>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="modelTitle">Creating a mem for “<span
+                        data-bind="text: $root.curItem.word()"></span>”</h4>
+            </div>
+            <div class="custom-nav-tabs">
+                <div class="nav-tab"
+                     data-bind="click: $root.showSearchImg.bind($root), css: {'active': useSearchImg() || useOldRepoImg()}"
+                     style="margin-right: 5px; margin-left: 5px;">
+                    <i class="fa fa-list"></i>
+                    Choose from stock images
+                </div>
+                <div class="nav-tab"
+                     data-bind="click: $root.showSkipSearch.bind($root), css: {'active': useUploadNewImg()}">
+                    <i class="fa fa-picture-o"></i>
+                    Upload new image
+                </div>
+            </div>
+            <div class="modal-body">
+                <div id="search-image" data-bind="fadeVisible: useSearchImg()">
+                    <div class="row">
+                        <div class="col-md-2 skip">
+                            &nbsp;
+                        </div>
+                    </div>
+                    <div class="row" style="overflow: auto">
+                        <!-- ko foreach: repoPictures.sources -->
+                        <img data-bind="attr: {src: $data}, click: $root.showUseOldImg.bind($root, $data)"
+                             class="mem-search-result" data-result-id="35">
+                        <!-- /ko -->
+                        <!-- ko if: repoPictures.nextPage() -->
+                        <div class="text-center" style="margin-top: 10px;">
+                            <a href="javascript: void(0)" class="text-bold text-info"
+                               data-bind="click: $root.loadAllPictures.bind($root, repoPictures.nextPage(), 1)">
+                                <i class="fa fa-arrow-down"></i>
+                                Show more
+                            </a>
+                        </div>
+                        <!-- /ko -->
+                    </div>
+                </div>
+                <div id="upload-image" style="display: none;"
+                     data-bind="fadeVisible: useUploadNewImg() || useOldRepoImg()">
+                    <div class="row">
+                        <div class="col-md-12" style="margin-bottom: 35px;">
+                            &nbsp;
+                        </div>
+                        <div class="col-md-12" style="margin-bottom: 20px;">
+                            <div class="col-md-4" style="padding-right: 0; width: 15%">
+                                <!-- ko if: useUploadNewImg() -->
+                            <span class="btn btn-default fileinput-button" style="line-height: 20px;">
+                                    <i class="fa fa-file"></i>
+                                    <span>Browse...</span>
+                                    <input type="file" name="file"
+                                           data-bind="event: {change: $root.readUrl.bind($root, $element)}"
+                                           id="image-file"/>
+                             </span>
+                                <!-- /ko -->
+                                <!-- ko if: useOldRepoImg() -->
+                                <span class="btn btn-default fileinput-button" style="line-height: 20px;"
+                                      data-bind="click: $root.showSearchImg.bind($root)">
+                                    <i class="fa fa-arrow-left"></i>
+                                    <span>Back</span>
+                                </span>
+                                <!-- /ko -->
+                            </div>
+                            <!-- ko if: useUploadNewImg() -->
+                            <div class="col-md-5" style="padding-left: 0;">
+                                <input type="text" data-bind="value: (file() != null) ? file() .name : ''" name="name"
+                                       class="form-control"/>
+                            </div>
+                            <!-- /ko -->
+                        </div>
+                        <!-- ko if: $root.uploadImage() != '' -->
+                        <div class="col-md-12 text-center"
+                             style="max-height: 280px; overflow: auto; margin-bottom: 10px;">
+                            <div class="thumbnail" style="display: inline-block;">
+                                <img src=""
+                                     data-bind="text: textPic, attr: {src: $root.uploadImage()}"
+                                     style="width: 448px;"/>
+
+                                <p data-bind="text: textPic, css: {'text-right' : right(), 'text-left' : left(), 'text-center' : center(), 'text' : true}"></p>
+                            </div>
+                        </div>
+                        <div class="text-center col-md-12" style="margin-bottom: 20px;">
+                            <textarea style="align-content: center; margin-bottom: 0;" id="subtitle"
+                                      class="panel panel-default"
+                                      data-bind="value: textPic, valueUpdate: 'afterkeydown'"/>
+                            <br/>
+                            <span>
+                            <button type="button" class="btn btn-default" data-bind="click: alignLeft">
+                                <i class="fa fa-align-left"></i>
+                            </button>
+                            <button type="button" class="btn btn-default" data-bind="click: alignCenter">
+                                <i class="fa fa-align-center"></i>
+                            </button>
+                            <button type="button" class="btn btn-default" data-bind="click: alignRight">
+                                <i class="fa fa-align-right"></i>
+                            </button>
+                            </span>
+                        </div>
+                        <div class="col-md-12">
+                            <!-- ko if: useUploadNewImg() -->
+                            <button class="btn btn-warning col-md-4 col-md-offset-4" type="submit"
+                                    data-bind="click: $root.fileUpload.bind($root)">
+                                <i class="fa fa-upload"/>
+                                Upload
+                            </button>
+                            <!-- /ko -->
+                            <!-- ko if: useOldRepoImg() -->
+                            <button class="btn btn-warning col-md-4 col-md-offset-4" type="submit"
+                                    data-bind="click: $root.createImgFromOld.bind($root)">
+                                <i class="fa fa-save"/>
+                                Save
+                            </button>
+                            <!-- /ko -->
+                        </div>
+                        <!-- /ko -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<!-- END MODAL -->
+<div class="quiz-area">
+<!-- ko if: curItem.audio() != null -->
+<div class="left-controls" id="left-controls" data-bind="jplayer: {audio: curItem.audio()}">
+    <!-- ko if: !$root.gameOver() -->
+    <a href="javascript: void(0)" class="control" id="btn-pause"
+       data-bind="click: $root.pause.bind($root)">
+        <i class="fa fa-pause"></i>
+    </a>
+    <!-- /ko -->
+
+    <div id="jplayer" style="display: none;"></div>
+    <a href="javascript: void(0)" class="control pull-left">
+        <i class="fa fa-volume-up" id="jplayer-play"></i>
+    </a>
+    <a href="javascript: void(0)" class="control pull-left">
+        <i class="fa fa-stop" id="jplayer-stop"></i>
+    </a>
+    <!--<a href="javascript: void(0)" class="control pull-left">-->
+    <!--<i class="fa fa-question"></i>-->
+    <!--</a>-->
+    <!-- ko if: !quizMode() -->
+    <a href="javascript: void(0)" class="control pull-right" id="next"
+       data-bind="click: $root.next.bind($root)">
+        <i class="fa fa-angle-right"></i>
+    </a>
+    <!-- /ko -->
+</div>
+<!-- /ko -->
+<!-- ko if: curItem.audio() == null -->
+<div class="left-controls" id="left-controls">
+    <a href="javascript: void(0)" class="control" id="btn-pause"
+       data-bind="click: $root.pause.bind($root)">
+        <i class="fa fa-pause"></i>
+    </a>
+    <!-- ko if: !quizMode() -->
+    <a href="javascript: void(0)" class="control pull-right" id="next"
+       data-bind="click: $root.next.bind($root)">
+        <i class="fa fa-angle-right"></i>
+    </a>
+    <!-- /ko -->
+</div>
+<!-- /ko -->
+<!-- LEARNING SCREEN -->
+<div class="container center" id="vocab"
+     data-bind="if: (!quizMode() && !isPause() && !gameOver()), fadeVisible: (!quizMode() && !isPause() && !gameOver())">
+<table class="vocab-area">
+    <tr>
+        <td class="label">Word</td>
+        <td class="values primary" data-bind="text: curItem.word">Table</td>
+    </tr>
+    <tr>
+        <td class="label">Meaning</td>
+        <td class="values secondary" data-bind="text: curItem.meaning">Cái bàn</td>
+    </tr>
+    <tr>
+        <td class="label">Pronunciation</td>
+        <td class="values meaning" data-bind="text: curItem.pronun">têbồ</td>
+    </tr>
+    <!-- LAST ANSWER -->
+    <tr data-bind="if: curItem.lastAnswer">
+        <td class="label">
+            Your answer
+        </td>
+        <td class="values lastAnswer" data-bind="text: curItem.lastAnswer">
+        </td>
+    </tr>
+    <!-- LAST ANSWER ends -->
+</table>
+<div class="container-fluid text-center">
+    <!-- ko if: selectedPicture.id() > 0 && !useImgMemHelper() -->
+    <style>
+        .selectedPicture {
+            width: 458px;
+            margin-right: auto;
+            margin-left: auto;
+            margin-top: 20px;
+        }
+
+        .selectedPicture .text-pic {
+            width: 448px;
+        }
+
+        .selectedPicture .media-object {
+            width: 44px;
+            height: 44px;
+            border: 1px solid #bdbdbd;
+            border-radius: 10px;
+            padding: 2px;
+        }
+
+        .selectedPicture .caption .btn-default {
+            background: none;
+            border-color: #ccc !important;
+            cursor: default;
+            font-weight: bold;
+        }
+    </style>
+    <div class="thumbnail selectedPicture" data-bind="with: selectedPicture">
+        <img data-bind="attr: {src: source()}" style="width: 458px;">
+        <!-- ko if: htmlFormat().text != '' -->
+        <p class="text-pic"
+           data-bind="text: htmlFormat().text, style: {textAlign: htmlFormat().align}"></p>
+        <!-- /ko -->
+        <div class="caption row">
+            <div class="col-md-8">
+                <div class="media">
+                    <a class="pull-left" href="#">
+                        <img class="media-object" data-src="holder.js/64x64" alt="64x64"
+                             data-bind="attr: {src: uploaderAvatar()}">
+                    </a>
+
+                    <div class="media-body text-left">
+                        <h4>
+                            Created by
+                            <a data-bind="text: uploaderName"></a>
+                        </h4>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="btn-group pull-right">
+                    <button class="btn btn-default col-md-6" disabled="true"
+                            data-bind="text: '+' + numOfLikes()">
+                    </button>
+                    <!-- ko ifnot: isLiked() -->
+                    <button class="btn btn-success col-md-6"
+                            data-bind="click: $root.likePicture.bind($root, $data), ">
+                        <i class="fa fa-thumbs-up"></i>
+                    </button>
+                    <!-- /ko -->
+                    <!-- ko if: isLiked() -->
+                    <button class="btn btn-default col-md-6" disabled="true">
+                        <i class="fa fa-thumbs-up"></i>
+                    </button>
+                    <!-- /ko -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href="javascript: void(0)"
+       data-bind="click: $root.setPicture.bind($root, 0, 'deselect')" class="pull-right">
+        <i class="fa fa-times"></i>
+        Unchoose this picture
+    </a>
+    <!-- /ko -->
+    <a id="show-memes" href="javascript: void(0)"
+       data-bind="click: $root.toggleImgMemHelper.bind($root), css: {'btn btn-default': selectedPicture.id() == 0 || useImgMemHelper(), 'pull-left': selectedPicture.id() > 0 && !useImgMemHelper()}">
+        <i class="fa fa-image"></i>
+        <!-- ko if: selectedPicture.id() > 0 && !useImgMemHelper() -->
+        Choose another picture
+        <!-- /ko -->
+        <!-- ko if: selectedPicture.id() > 0 && useImgMemHelper() -->
+        Cancel
+        <!-- /ko -->
+        <!-- ko if: selectedPicture.id() == 0 -->
+        Remember by image
+        <!-- /ko -->
+    </a>
+
+    <div id="choose-memes" data-bind="if: useImgMemHelper()">
+        <h4>
+            <font color="#888888">Click on a picture that helps you remember</font>
+        </h4>
+
+        <div id="memes" class="container carousel slide memes-carousel"
+             data-ride="carousel" data-interval="false">
+            <div class="carousel-inner">
+                <!-- ko foreach: pictures -->
+                <div class="thumbnail item"
+                     data-bind="css: {'active': $index() == $root.carouselCurIndex()}" style="width: 458px">
+                    <div style="cursor: pointer; position: absolute; width: calc(100% - 8px); height: calc(100% - 69px);"
+                         data-bind="click: $root.setPicture.bind($root, id(), 'select')"></div>
+                    <img data-bind="attr: {src: source()}"
+                         style="width: 448px; margin-left: auto; margin-right: auto">
+                    <!-- ko if: htmlFormat.text() != '' -->
+                    <p class="text-pic"
+                       data-bind="text: htmlFormat.text(), style: {textAlign: htmlFormat.align()}"
+                       style="width: 448px;"></p>
+                    <!-- /ko -->
+                    <div class="caption row">
+                        <div class="col-md-8">
+                            <div class="media">
+                                <a class="pull-left" href="#">
+                                    <img class="media-object" data-src="holder.js/64x64" alt="64x64"
+                                         data-bind="attr: {src: uploaderAvatar()}">
+                                </a>
+
+                                <div class="media-body text-left">
+                                    <h4>
+                                        Created by
+                                        <a data-bind="text: uploaderName"></a>
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="btn-group pull-right">
+                                <button class="btn btn-default col-md-6" disabled="true"
+                                        data-bind="text: '+' + numOfLikes()">
+                                </button>
+                                <!-- ko ifnot: isLiked() -->
+                                <button class="btn btn-success col-md-6"
+                                        data-bind="click: $root.likePicture.bind($root, $data), ">
+                                    <i class="fa fa-thumbs-up"></i>
+                                </button>
+                                <!-- /ko -->
+                                <!-- ko if: isLiked() -->
+                                <button class="btn btn-default col-md-6" disabled="true">
+                                    <i class="fa fa-thumbs-up"></i>
+                                </button>
+                                <!-- /ko -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /ko -->
+                <!-- ko if: $root.paging.nextPage() -->
+                <div class="thumbnail item add-meme">
+                    <a href="#" class="grey-highlight"
+                       data-bind="click: $root.loadPicturesOfItem.bind($root, $root.paging.nextPage(), '', '', pictures().length, $element)">
+                        <i class="fa fa-refresh"></i>
+                        Show more
+                    </a>
+                </div>
+                <!-- /ko -->
+                <!-- ko if: pictures().length == 0 -->
+                <div class="thumbnail item add-meme active">
+                    <a href="#" class="grey-highlight" data-toggle="modal" data-target="#chooseImage"
+                       data-bind="event: {click: $root.showSearchImg.bind($root)}">
+                        <i class="fa fa-plus"></i>
+                        Add your picture
+                    </a>
+                </div>
+                <!-- /ko -->
+            </div>
+            <!-- ko if: $root.pictures().length > 0 -->
+            <a class="left carousel-control" href="#memes" role="button"
+               data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </a>
+            <a class="right carousel-control" href="#memes" role="button"
+               data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+            </a>
+            <!-- /ko -->
+        </div>
+        <!-- ko ifnot: pictures().length == 0 -->
+        <h5>
+            <a href="#" data-toggle="modal" data-target="#chooseImage"
+               data-bind="event: {click: $root.showSearchImg.bind($root)}">
+                <i class="fa fa-plus"></i>
+                Add your picture
+            </a>
+        </h5>
+        <!-- /ko -->
+    </div>
+</div>
+</div>
+<!-- LEARNING SCREEN ends -->
+<!-- QUIZ SCREEN -->
+<div class="container center"
+     data-bind="if: (quizMode() && !isPause() && !gameOver()), fadeVisible: (quizMode() && !isPause()&& !gameOver())">
+    <div class="row">
+        <!--<div class="progress">-->
+        <!--<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100" aria-valuemin="0"-->
+        <!--aria-valuemax="100" style="width: 100%;">-->
+        <!--</div>-->
+        <!--</div>-->
+        <table class="vocab-area" style="margin-left: -25px;">
+            <!-- QUESTION TEXT -->
+            <tr>
+                <td class="question-mark">
+                    <i class="fa fa-question-circle"></i>
+                </td>
+                <td class="values primary no-border" data-bind="text: curQuestion.text">ネン</td>
+            </tr>
+            <!-- QUESTION TEXT ends -->
+            <!-- INPUT TEXT QUESTION -->
+            <tr data-bind="if: curQuestion.type() == 1">
+                <td></td>
+                <td class="question no-border">
+                    Type the opposite meaning of this character
+                </td>
+            </tr>
+            <tr data-bind="if: curQuestion.type() == 1">
+                <td></td>
+                <td class="">
+                    <form role="form" data-bind="submit: $root.submitAnswer.bind($root)">
+                        <div class="input-group" style="margin-top: 15px; width: 98%;">
+                            <input type="text" class="form-control" data-bind="value: curQuestion.userAnswer,
+                                    attr:{disabled: curQuestion.isSubmitted()}">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-success" type="submit"
+                                            data-bind="attr:{disabled: curQuestion.isSubmitted()}">Submit
+                                    </button>
+                                </span>
+                        </div>
+                        <div class="form-group">
+
+                        </div>
+                    </form>
+                </td>
+            </tr>
+            <tr data-bind="if: (curQuestion.type() == 1 && $root.curQuestion.isSubmitted() && !$root.curQuestion.isUserCorrect())">
+                <td></td>
+                <td class="question no-border">
+                    Correct answer: <span data-bind="text: curQuestion.answer"></span>
+                </td>
+            </tr>
+            <!-- INPUT TEXT QUESTION ends -->
+            <!-- MULTIPLE CHOICE QUESTION -->
+            <tr data-bind="if: curQuestion.type() == 0">
+                <td></td>
+                <td class="row" data-bind="foreach: curQuestion.options">
+                    <div class="col-md-12" style="margin-top: 15px;">
+                        <button class="btn btn-default btn-block answer-btn" data-bind="text: $data,
+                                click: $root.chooseOption.bind($root,$data),
+                                css: {'btn-danger': ($root.curQuestion.isSubmitted() && $data != $root.curQuestion.answer()),
+                                      'btn-success': ($root.curQuestion.isSubmitted() && $data == $root.curQuestion.answer())},
+                                attr:{disabled: $root.curQuestion.isSubmitted()}">
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            <!-- MULTIPLE CHOICE QUESTION ends -->
+            <!-- SUBMIT RESULT ICON -->
+            <tr data-bind="if: curQuestion.isSubmitted()">
+                <td></td>
+                <td class="row text-center" style="font-size: 5em">
+                    <!-- ko ifnot: $root.curQuestion.isUserCorrect() -->
+                    <i class="fa fa-times-circle-o" style="color: transparent"></i>
+                    <i class="fa fa-times-circle-o" style="color: #b92c28"></i>
+                    <a href="javascript:;" data-bind="click: $root.next.bind($root)">
+                        <i class="fa fa-arrow-circle-o-right" style="color: #28a4c9"></i>
+                    </a>
+                    <!-- /ko -->
+                    <!-- ko if: $root.curQuestion.isUserCorrect() -->
+                    <i class="fa fa-check-circle-o" style="color: transparent"></i>
+                    <i class="fa fa-check-circle-o" style="color: #3e8f3e"></i>
+                    <a href="javascript:;" data-bind="click: $root.next.bind($root)">
+                        <i class="fa fa-arrow-circle-o-right" style="color: #28a4c9"></i>
+                    </a>
+                    <!-- /ko -->
+                </td>
+            </tr>
+            <tr data-bind="if: curQuestion.isSubmitted()">
+                <td></td>
+                <td class="row text-center" data-bind="if: $root.curQuestion.point() != null">
+                    <span data-bind="
+                        css: {'deep-green': ($root.curQuestion.point() - $root.curQuestion.bonus() + $root.curQuestion.penalty()) > 0,
+                              'red': ($root.curQuestion.point() - $root.curQuestion.bonus() + $root.curQuestion.penalty()) == 0},
+                        text: '+' + ($root.curQuestion.point() - $root.curQuestion.bonus() + $root.curQuestion.penalty())"
+                          style="font-size: 3em;font-weight: bold;">
+                    </span><br/>
+                    <!-- ko if: $root.curQuestion.bonus() -->
+                    <span class="deep-green" data-bind="text: '+' + $root.curQuestion.bonus(), tooltip"
+                          style="font-size: 2.5em;font-weight: bold;" data-toggle="tooltip"
+                          data-placement="bottom" title="Bonus for doing revision ontime">
+                    </span><br/>
+                    <!-- /ko -->
+                    <!-- ko if: $root.curQuestion.penalty() > 0 -->
+                    <span class="red" data-bind="text: '-' + $root.curQuestion.penalty(), tooltip"
+                          style="font-size: 2.5em;font-weight: bold;" data-toggle="tooltip"
+                          data-placement="bottom" title="Penalty point because of your last wrong answer">
+                    </span>
+                    <!-- /ko -->
+                </td>
+            </tr>
+            <!-- SUBMIT RESULT ICON ends -->
+        </table>
+    </div>
+</div>
+<!-- QUIZ SCREEN ends -->
+<!-- RESULT SCREEN -->
+<div class="container center" data-bind="if: (!isPause() && gameOver()), fadeVisible: (!isPause() && gameOver())">
+    <div class="row" style="margin-top: 50px;">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <div class="panel panel-primary text-center">
+                <div class="panel-heading" style="font-size: 24px;">
+                    Result Board
+                </div>
+                <div class="panel-body">
+                    Your learning result
+
+                    <hr>
+                    <h4>Points: <span data-bind="text: totalPoint"></span></h4>
+
+                    <hr>
+                    <h4>Accuracy: <span data-bind="text: totalAccuracy"></span></h4>
+
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar"
+                             aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%"
+                             data-bind="attr:{'aria-valuenow': totalAccuracy(), style: 'width:' + totalAccuracy() + '%'}">
+                            <span class="sr-only"><span data-bind="text: totalAccuracy()"></span>% Complete</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <button type="button" class="btn btn-success"
+                            data-bind="click: submitTurn.bind($root),
+                            attr:{disabled: $root.disableSubmit()}">
+                        <i class="fa fa-check-circle-o"></i>
+                        Ok
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+</div>
+<!-- RESULT SCREEN ends -->
+<!-- PAUSE SCREEN -->
+<div class="splash" data-bind="if: isPause, fadeVisible: isPause">
+    <div class="message text-center">
+        PAUSING
+    </div>
+    <i class="fa fa-pause fa-4x"></i>
+
+    <div class="caption text-center">
+        Do you want to quit?
+    </div>
+</div>
+<!-- PAUSE SCREEN ends -->
+</div>
+
+<div id="pause-screen" data-bind="fadeVisible: isPause">
+    <div class="left-controls waiting">
+        <a href="javascript: void(0)" class="control btn-play" id="btn-play"
+           data-bind="click: $root.pause.bind($root)">
+            <i class="fa fa-play-circle-o"></i>
+        </a>
+        <a href="javascript: void(0)" class="control pull-left save" data-bind="click: submitTurn.bind($root)">
+            <i class="fa fa-save"></i>
+            Save & Exit
+        </a>
+    </div>
+</div>
+
+</session>

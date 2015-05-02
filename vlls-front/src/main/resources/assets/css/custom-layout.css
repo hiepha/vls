@@ -1,0 +1,209 @@
+.bg-half-transparent {
+    background: none;
+    background-color: rgba(255, 255, 255, 0.78) !important;
+    /*border-color: rgba(255,255, 255, 255);*/
+    border-color: #bebebe;
+    color: black;
+}
+
+.bg-linear-gradient {
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.2) 78%, rgba(0, 0, 0, 0.1) 100%);
+}
+
+nav.header-element {
+    background-image: none;
+    margin-bottom: 1px;
+    border-radius: 0px;
+}
+
+nav.header-element:first-of-type {
+    background-color: #428bca;
+    border-color: #428bca;
+}
+
+nav.header-element:last-of-type {
+    border-color: ;
+    margin-bottom: 5px;
+    border-radius: 6px;
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+}
+
+#left_sidebar {
+    width: 100%;
+    height: auto;
+    min-height: 550px;
+    font-size: 1.6rem;
+    font-weight: 300;
+    border-radius: 5px;
+    position: relative;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+#left_sidebar .main_menu {
+    /*width: calc(940px/4 - 30px);*/
+    /*top: 155px;*/
+    width: 100%;
+    margin: 12px 0;
+    font-size: 1.02em;
+    line-height: 1;
+    padding: 0;
+    list-style: none;
+}
+
+#left_sidebar .main_menu > .menu_item {
+    text-align: center;
+    display: block;
+    margin: 0;
+    padding: 0 5px;
+}
+
+#left_sidebar .main_menu > .menu_item > a,
+#left_sidebar .main_menu > .menu_item > span {
+    display: block;
+    color: #000000;
+    padding: 7px 10px;
+    background: rgba(0, 0, 0, 0.01);
+    text-decoration: none;
+    text-align: center;
+    font-weight: normal;
+    margin-right: -5px;
+    margin-left: -5px;
+}
+
+#left_sidebar .main_menu > .menu_item > a:hover,
+#left_sidebar .main_menu > .menu_item > span:hover {
+    display: block;
+    background: rgba(255, 255, 255, 255.3);
+}
+
+#left_sidebar .main_menu > .menu_item.active > * {
+    font-family: 'open_sansbold', sans-serif;
+    font-weight: bold;
+    background: rgba(255, 255, 255, 255.15);
+}
+
+#left_sidebar .btn {
+    /*border: 2px outset rgba(27, 27, 27, 0.6);
+    border-bottom: 2px solid rgba(15, 15, 15, 0.6);
+    background-image: none;
+    background-color: rgba(0, 0, 0, 0);*/
+    color: #000000;
+}
+
+#left_sidebar .list-group-item {
+    background-color: transparent;
+    border: 1px solid #cecece;
+    text-align: left;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+#left_sidebar .list-group-item:not(:last-child) {
+    border-bottom: none;
+}
+
+#left_sidebar .list-group-item:not(:first-child) {
+    border-top: none;
+}
+
+#left_sidebar .list-group-item a {
+    color: #000000;
+    text-decoration: none;
+}
+
+.flag-circle {
+    width: 20px;
+    margin: -3px 3px 0 0;
+}
+
+.flag-circle-div {
+    top: 163px;
+    border: 1px solid #ddd;
+    border-bottom: none;
+    border-left: none;
+    padding: 5px;
+    border-top-right-radius: 12px;
+    z-index: 5;
+    position: absolute;
+    background-color: #ffffff;
+}
+
+.bg-half-transparent .flag-circle-div {
+    background-color: rgba(0, 0, 0, 0.78);
+    border-color: transparent;
+}
+
+.thumbnail {
+    position: relative;
+}
+
+.thumbnail > img {
+    border-radius: 4px;
+    border-bottom-left-radius: 0;
+}
+
+.thumbnail .caption {
+    color: #000000;
+}
+
+.thumbnail .caption .info-block {
+    display: table;
+    margin-bottom: 7px;
+    font-size: 12px;
+    width: 100%;
+}
+
+.thumbnail .caption > .info-block > .language {
+    float: left;
+    width: 50%;
+    text-align: left;
+}
+
+.thumbnail .caption > .info-block > .author {
+    float: right;
+    width: 50%;
+    text-align: right;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.thumbnail .thumbnail-label {
+    width: calc(100% + 12px);
+    height: 54px;
+    margin: 0;
+    margin-top: 3px;
+    font-size: 18px;
+    line-height: 20px;
+    clear: both;
+    margin-left: -6px;
+}
+.thumbnail .btn-group {
+    width: calc(100% + 13px);
+    margin-left: -6px;
+}
+
+.thumbnail .btn-group > .btn{
+    color: #000000;
+    padding: 6px 8px;
+    font-size: 15px;
+    border-color: #AAAAAA;
+    background: initial;
+}
+
+.thumbnail .btn-group > .btn:hover{
+    border-color: #AAAAAA;
+    background: initial;
+    cursor: default;
+}
+
+.thumbnail .thumbnail-label a {
+    color: #000000;
+    font-weight: bold;
+}
+
+.thumbnail .thumbnail-label a:hover {
+    text-decoration: none;
+}

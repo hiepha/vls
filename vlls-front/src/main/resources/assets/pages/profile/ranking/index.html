@@ -1,0 +1,110 @@
+<session>
+    <div class="row content container-fluid">
+        <div class="panel panel-default">
+            <div class="container-fluid panel-heading">
+                <h3>
+                    <strong>
+                        <i class="fa fa-trophy"></i>
+                        Leaderboard
+                    </strong>
+
+                    <!--<div class="btn-group btn-group-xs pull-right" style="margin: 0;">-->
+                        <!--<button class="btn"-->
+                                <!--data-bind="css: {'btn-success': type() == 'friendRanking', 'btn-default': type() != 'friendRanking'},-->
+                            <!--click: $root.getRanking.bind($root, 'friendRanking')">-->
+                            <!--Friends-->
+                        <!--</button>-->
+                        <!--<button class="btn"-->
+                                <!--data-bind="css: {'btn-success': type() == 'ranking', 'btn-default': type() != 'ranking'},-->
+                            <!--click: $root.getRanking.bind($root, 'ranking')">-->
+                            <!--All-->
+                        <!--</button>-->
+                    <!--</div>-->
+                </h3>
+            </div>
+            <div class="container-fluid row panel-body" style="margin-left: auto; margin-right: auto;margin: 0px -5px;">
+                <!-- ko if: ranking().length == 0 -->
+                <h4 class="text-center">
+                    No ranking information
+                </h4>
+                <!-- /ko -->
+                <!-- ko if: ranking().length > 0 -->
+                <style>
+                    .leaderboard tr {
+                        height: 100px;
+                        border-bottom: 1px solid #cccccc;
+                    }
+
+                    .leaderboard tr:last-child {
+                        border-bottom-color: #ffffff;
+                    }
+
+                    .leaderboard tr:first-child {
+                        border-top: 1px solid #cccccc;
+                    }
+
+                    .leaderboard .avatar {
+                        width: 50px;
+                        height: 50px;
+                        border-radius: 3px;
+                        margin-right: 45px;
+                    }
+
+                    .leaderboard .label, .leaderboard .badge, .leaderboard .username {
+                        font-size: 18px;
+                    }
+
+                    .leaderboard .username {
+                        color: #000000;
+                        font-weight: bold;
+                    }
+
+                    .leaderboard .visit-btn {
+                        height: 50px;
+                        width: 100px;
+                        font-size: 18px;
+                        line-height: 38px;
+                        color: #686468;
+                    }
+
+                </style>
+                <div class="panel panel-default collapse in leaderboard">
+                    <div class="panel-heading" style="min-height: 408px; background: transparent; padding-top: 5px">
+                        <table width="100%">
+                            <thead>
+                            <tr style="height: 30px; border-color: #ffffff">
+                                <th style="width: 15%">Rank</th>
+                                <th style="width: 60%; padding-left: 100px;">User</th>
+                                <th style="width: 20%" class="text-right">Points</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <!-- ko foreach: ranking -->
+                            <tr>
+                                <td>
+                                    <span class="label"
+                                          data-bind="text: ($index() + 1) + 'th', css {'label-success': $index() == 0, 'label-primary': $index() == 1, 'label-warning': $index() == 2, 'label-default': $index() > 2}"></span>
+                                </td>
+                                <td>
+                                    <img class="avatar" data-bind="attr: {src: avatar(), alt: name()}">
+                                    <span class="username" data-bind="text: name"></span>
+                                    <a class="btn btn-default pull-right visit-btn"
+                                       data-bind="attr: {href: '#profile/' + name()}">
+                                        Visit
+                                    </a>
+                                </td>
+                                <td>
+                                    <span class="badge pull-right"
+                                          data-bind="text: (point() == null) ? '0' : point()"></span>
+                                </td>
+                            </tr>
+                            <!-- /ko -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- /ko -->
+            </div>
+        </div>
+    </div>
+</session>

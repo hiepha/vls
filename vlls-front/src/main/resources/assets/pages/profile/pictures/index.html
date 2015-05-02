@@ -1,0 +1,311 @@
+<session>
+<style>
+    .course-item {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
+    .text-pic {
+        width: 425px;
+        text-align: left;
+        color: #fff;
+        background: #000;
+        margin-right: auto;
+        margin-left: auto;
+    }
+
+    .media-object {
+        width: 50px;
+        height: 50px;
+        border: 1px solid #bdbdbd;
+        border-radius: 10px;
+        padding: 2px;
+    }
+
+    .media .btn {
+        width: 44px;
+        height: 44px;
+        margin-top: 3px;
+    }
+
+    .btn-del-picture {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        display: none;
+    }
+
+    .item-picture:hover > .btn-del-picture {
+        display: inline-block;
+    }
+</style>
+<div class="row content container-fluid">
+<div class="panel panel-default">
+    <div class="container-fluid panel-heading">
+        <h3>
+            <strong>
+                <i class="fa fa-image"></i>
+                Pictures
+            </strong>
+
+            <div class="btn-group btn-group-xs pull-right" style="margin: 0;">
+                <button class="btn"
+                        data-bind="css: {'btn-success': type() == 'created', 'btn-default': type() != 'created'},
+                            click: $root.loadPictures.bind($root, 'created', 0)">
+                    Created
+                </button>
+                <button class="btn btn-default"
+                        data-bind="css: {'btn-success': type() == 'liked', 'btn-default': type() != 'liked'},
+                            click: $root.loadPictures.bind($root, 'liked', 0)">
+                    Liked
+                </button>
+                <button class="btn btn-default"
+                        data-bind="css: {'btn-success': type() == 'popular', 'btn-default': type() != 'popular'},
+                            click: $root.loadPictures.bind($root, 'popular', 0)">
+                    Popular
+                </button>
+            </div>
+        </h3>
+    </div>
+    <div class="container-fluid row panel-body" style="margin-left: auto; margin-right: auto;margin: 0px -5px;">
+        <!-- ko if: pictures().length == 0 -->
+        <div class="text-center">
+            <h3>
+                <strong>
+                    <span data-bind="if: type() == 'created'">No picture :(</span>
+                    <span data-bind="if: type() == 'liked'">No picture :(</span>
+                    <span data-bind="if: type() == 'popular'">No picture :(</span>
+                </strong>
+            </h3>
+        </div>
+        <!-- /ko -->
+        <!-- ko foreach: pictures -->
+        <div style="margin-bottom: 10px;width: 462px; margin-left: auto; margin-right: auto">
+            <h3>
+                <strong data-bind="text: itemWord"></strong>
+                <button class="btn btn-info btn-xs" data-bind="click: $root.setItem.bind($root, itemId())"
+                        data-toggle="modal" data-target="#item-detail-modal">
+                    <i class="fa fa-question"></i>
+                </button>
+            </h3>
+
+            <p>
+            <h4 data-bind="text: itemMeaning"></h4>
+            </p>
+            <div class="thumbnail well item-picture" style="padding: 5px">
+                <img data-bind="attr: {src: (source().indexOf('assets') != -1 ) ? source() : ('assets/img/item/' + source())}"
+                     alt="..." style="width: 450px;border: 1px solid #A8A8A8;">
+                <!-- ko if: htmlFormat.text() != '' -->
+                <p class="text-pic"
+                   data-bind="text: htmlFormat.text(), style: {textAlign: htmlFormat.align()}"
+                   style="text-align: center;position: absolute;margin-bottom: 0;bottom: 5px;width: 450px;border-left: 1px solid #A8A8A8;border-right: 1px solid #A8A8A8;"></p>
+                <!-- /ko -->
+                <!-- ko if: ($root.isCurUser() && ($root.user.name() == uploaderName())) -->
+                <button class="btn btn-danger btn-xs btn-del-picture"
+                        data-bind="click: $root.deletePicture.bind($root, id(), itemWord())">
+                    <i class="fa fa-close"></i>
+                </button>
+                <!-- /ko -->
+            </div>
+            <div class="media">
+                <!-- ko ifnot:  $root.isCurUser() && ($root.user.name() == uploaderName())  -->
+                <a class="pull-left" data-bind="attr: {href: '#profile/' + uploaderName()}">
+                    <img data-bind="attr: {src: uploaderAvatar()}" class="media-object">
+                </a>
+
+                <div class="media-body col-md-4">
+                    <h4>
+                        Created by
+                        <a data-bind="text: uploaderName(), attr: {href: '#profile/' + uploaderName()}"></a>
+                    </h4>
+                </div>
+                <!-- /ko -->
+                <div class="btn-group pull-right">
+                    <button class="btn btn-default col-md-6" disabled="true"
+                            data-bind="text: '+' + numOfLikes()">
+                    </button>
+                    <!-- ko if: $root.isCurUser() -->
+                    <!-- ko ifnot: isLiked() && $root.isCurUser() -->
+                    <button class="btn btn-success col-md-6"
+                            data-bind="click: $root.likePicture.bind($root, $data), ">
+                        <i class="fa fa-thumbs-up"></i>
+                    </button>
+                    <!-- /ko -->
+                    <!-- ko if: isLiked() && $root.isCurUser() -->
+                    <button class="btn btn-default col-md-6" disabled="true">
+                        <i class="fa fa-thumbs-up"></i>
+                    </button>
+                    <!-- /ko -->
+                    <!-- /ko -->
+                </div>
+            </div>
+        </div>
+        <!-- /ko -->
+    </div>
+    <!-- ko if: paging.range().length > 1 -->
+    <div class="container-fluid panel-footer">
+        <div class="container-fluid row text-center"
+             style="margin-left: auto; margin-right: auto;margin: 0px -5px;">
+            <ul class="pagination" style="margin: 0;">
+                <li data-bind="css: {disabled: paging.pageNumber() == 0}">
+                    <!-- ko ifnot: paging.pageNumber() == 0 -->
+                    <a href="javascript: void(0);"
+                       data-bind="click: $root.loadPictures.bind($root, $root.type(),0)">
+                        <i class="fa fa-angle-double-left"></i>
+                    </a>
+                    <!-- /ko -->
+                    <!-- ko if: paging.pageNumber() == 0 -->
+                    <a href="javascript: void(0);">
+                        <i class="fa fa-angle-double-left"></i>
+                    </a>
+                    <!-- /ko -->
+                </li>
+                <li data-bind="css: {disabled: paging.prevPage() == null}">
+                    <!-- ko ifnot: paging.prevPage() == null -->
+                    <a href="javascript: void(0);"
+                       data-bind="click: $root.loadPictures.bind($root, $root.type(),paging.prevPage())">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <!-- /ko -->
+                    <!-- ko if: paging.prevPage() == null -->
+                    <a href="javascript: void(0);">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <!-- /ko -->
+                </li>
+                <li>
+                            <span style="cursor: default;">
+                                <span data-bind="text: paging.pageNumber() + 1"></span>
+                                /
+                                <span data-bind="text: paging.totalPages()"></span>
+                            </span>
+                </li>
+                <li data-bind="css: {disabled: paging.nextPage() == null}">
+                    <!-- ko ifnot: paging.nextPage() == null -->
+                    <a href="javascript: void(0);"
+                       data-bind="click: $root.loadPictures.bind($root, $root.type(),paging.nextPage())">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                    <!-- /ko -->
+                    <!-- ko if: paging.nextPage() == null -->
+                    <a href="javascript: void(0);">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                    <!-- /ko -->
+                </li>
+                <li data-bind="css: {disabled: paging.pageNumber() == (paging.totalPages() - 1)}">
+                    <!-- ko ifnot: paging.pageNumber() == (paging.totalPages() - 1) -->
+                    <a href="javascript: void(0);"
+                       data-bind="click: $root.loadPictures.bind($root, $root.type(),paging.totalPages() - 1)">
+                        <i class="fa fa-angle-double-right"></i>
+                    </a>
+                    <!-- /ko -->
+                    <!-- ko if: paging.pageNumber() == (paging.totalPages() - 1) -->
+                    <a href="javascript: void(0);">
+                        <i class="fa fa-angle-double-right"></i>
+                    </a>
+                    <!-- /ko -->
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- /ko -->
+</div>
+
+<style>
+    #item-detail-modal .modal-content .modal-header {
+        border-top: 1px solid #e5e5e5;
+        border-bottom: none;
+    }
+
+    #item-detail-modal .modal-content .modal-header:first-child {
+        border-top: none;
+    }
+
+    #item-detail-modal .modal-header h1,
+    #item-detail-modal .modal-header h2,
+    #item-detail-modal .modal-header h3,
+    #item-detail-modal .modal-header h4,
+    #item-detail-modal .modal-header h5 {
+        display: inline-block;
+    }
+
+    #item-detail-modal .modal-header .item-label {
+        color: #a1a1a1;
+        font-size: 13px;
+        width: 150px;
+    }
+
+    #item-detail-modal #left-controls {
+        display: inline-block;
+    }
+
+    #item-detail-modal #left-controls #jplayer-stop {
+        display: none;
+    }
+
+    #item-detail-modal #left-controls #jplayer-play {
+        display: inline-block;
+    }
+
+    #item-detail-modal #left-controls.audio-playing #jplayer-play {
+        display: none;
+    }
+
+    #item-detail-modal #left-controls.audio-playing #jplayer-stop {
+        display: inline-block;
+    }
+</style>
+
+<!-- ITEM DETAIL MODAL -->
+<div class="modal fade" id="item-detail-modal" tabindex="-1" role="dialog" aria-hidden="true"
+     data-bind="with: item">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h5 class="modal-title item-label">Word</h5>
+
+                    <h3 class="modal-title" data-bind="text: name"></h3>
+                </div>
+                <div class="modal-header">
+                    <h5 class="modal-title item-label">Meaning</h5>
+                    <h4 class="modal-title" data-bind="text: meaning"></h4>
+                </div>
+                <!-- ko if: type() != null && type() != '' -->
+                <div class="modal-header">
+                    <h5 class="modal-title item-label">Type</h5>
+                    <h4 class="modal-title" data-bind="text: type"></h4>
+                </div>
+                <!-- /ko -->
+                <!-- ko if: (pronun() != null && pronun() != '') || audio() != null -->
+                <div class="modal-header">
+                    <h5 class="modal-title item-label">Pronunciation</h5>
+                    <!-- ko if: pronun() != null && pronun() != '' -->
+                    <h4 class="modal-title" data-bind="text: pronun"></h4>
+                    <!-- /ko -->
+                    <!-- ko if: audio() != null -->
+                    <h4 id="left-controls" data-bind="jplayer: {audio: audio()}">
+                        <div id="jplayer" style="display: none;"></div>
+                        <button type="button" class="btn btn-default btn-xs" id="jplayer-play">
+                            <i class="fa fa-volume-up"></i>
+                        </button>
+                        <button type="button" class="btn btn-default btn-xs" id="jplayer-stop">
+                            <i class="fa fa-stop"></i>
+                        </button>
+                    </h4>
+                    <!-- /ko -->
+                </div>
+                <!-- /ko -->
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+</div>
+</session>

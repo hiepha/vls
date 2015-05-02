@@ -1,0 +1,210 @@
+<session>
+    <!-- Main content -->
+    <div class="row">
+        <!-- Left sidebar -->
+        <!-- Left sidebar ends -->
+        <style>
+            .recommendation .courses-container {
+                border-radius: 4px;
+                border: 1px solid #DDDDDD;
+                margin-bottom: 0;
+            }
+
+            .recommendation .frame {
+                padding: 0;
+                /*border: 1px solid #CDCDCD;*/
+                background-color: #ffffff;
+                padding: 15px;
+                border-radius: 4px;
+            }
+
+            .recommendation .title {
+                font-weight: bold;
+                margin-bottom: 5px;
+                padding-bottom: 5px;
+                border-bottom: 1px solid #c0c0c0;
+            }
+
+            .recommendation .item-container {
+                padding-right: 0;
+                padding-left: 0;
+                border-radius: 0;
+                border: 0;
+                margin: 0;
+                width: 20%;
+            }
+
+            .recommendation .item-container .thumbnail {
+                padding: 5px;
+                margin: 0;
+                border: 0;
+                border-radius: 0;
+            }
+
+            .recommendation .item-container .thumbnail > img {
+                width: 100%;
+                height: 157px;
+                border: 1px solid #DDDDDD;
+            }
+
+            .recommendation .item-container .thumbnail > .language {
+                border-radius: 4px;
+                display: inline-block;
+                position: absolute;
+                padding: 7px 0px 3px 3px;
+                top: 125px;
+                background: #ffffff;
+                left: 10px;
+            }
+
+            .recommendation .item-container .thumbnail > .caption {
+                padding: 9px 0 0 0;
+            }
+
+            .recommendation .btn-page {
+                position: absolute;
+                z-index: 9999;
+                font-size: 26px;
+                color: #A19898;
+                height: 170px;
+                line-height: 170px;
+            }
+
+            .recommendation .btn-page.prev-page {
+                left: 3px;
+            }
+
+            .recommendation .btn-page.next-page {
+                right: 3px;
+            }
+
+            .recommendation .frame:hover .btn-page {
+                height: 74px;
+                line-height: 74px;
+                border: 1px solid #bcbcbc;
+                width: 32px;
+                text-align: center;
+                color: #000;
+                top: 102px;
+                background-color: #ffffff;
+                cursor: pointer;
+            }
+
+            .recommendation .frame:hover .btn-page.prev-page {
+                left: -13px;
+                border-right-color: transparent;
+                box-shadow: -1px 1px 1px 0px #7C7C7C;
+            }
+
+            .recommendation .frame:hover .btn-page.next-page {
+                right: -13px;
+                border-left-color: transparent;
+                box-shadow: 1px 1px 1px 0px #7C7C7C;
+            }
+        </style>
+        <!-- Main body -->
+        <div class="col-md-12 recommendation">
+            <div class="panel panel-default">
+                <div class="panel-body courses-container">
+                    <!-- ko if: similarCourses.totalPages() > 0 -->
+                    <div class="col-md-12 frame">
+                        <h4 class="title">
+                            <i class="fa fa-bookmark"></i>
+                            Similar courses
+                        </h4>
+                        <!-- ko if: similarCourses.pageNumber() > 0 -->
+                        <div class="btn-page prev-page"
+                             data-bind="click: $root.loadSimilarCourses.bind($root, similarCourses.pageNumber() - 1)">
+                            <strong>
+                                <i class="fa fa-angle-left"></i>
+                            </strong>
+                        </div>
+                        <!-- /ko -->
+                        <!-- ko if: similarCourses.pageNumber() < similarCourses.totalPages() - 1 -->
+                        <div class="btn-page next-page"
+                             data-bind="click: $root.loadSimilarCourses.bind($root, similarCourses.pageNumber() + 1)">
+                            <strong>
+                                <i class="fa fa-angle-right"></i>
+                            </strong>
+                        </div>
+                        <!-- /ko -->
+                        <!-- ko foreach: similarCourses.dataList() -->
+                        <div class="col-md-3 item-container">
+                            <div class="thumbnail">
+                                <img data-bind="attr: {src: (avatar() == null || avatar() == '') ? 'assets/img/course-0.png' : avatar()}">
+
+                                <div class="language">
+                                    <img class="flag-circle" style="width: 25px;"
+                                         data-bind="attr: {src: 'assets/img/lang-flag/' + langSpeak() + '.png'}">
+                                </div>
+                                <div class="caption">
+                                    <p style="font-size: 12px;">
+                                        <strong style="font-size: 16px;">
+                                            <a data-bind="attr: {href: '#course-details/' + id()}, text: name"
+                                               class="text-primary">
+                                            </a>
+                                        </strong>
+                                        <br/>
+                                        by <a data-bind="text: creatorName, attr: {href: '#profile/' + creatorName()}"
+                                              style="color: #000;"></a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /ko -->
+                    </div>
+                    <!-- /ko -->
+                    <!-- ko if: alsoLearnCourses.totalPages() > 0 -->
+                    <div class="col-md-12 frame">
+                        <h4 class="title">
+                            <i class="fa fa-users"></i>
+                            Courses also learned by others
+                        </h4>
+                        <!-- ko if: alsoLearnCourses.pageNumber() > 0 -->
+                        <div class="btn-page prev-page"
+                             data-bind="click: $root.loadAlsoLearnCourses.bind($root, alsoLearnCourses.pageNumber() - 1)">
+                            <strong>
+                                <i class="fa fa-angle-left"></i>
+                            </strong>
+                        </div>
+                        <!-- /ko -->
+                        <!-- ko if: alsoLearnCourses.pageNumber() < alsoLearnCourses.totalPages() - 1 -->
+                        <div class="btn-page next-page"
+                             data-bind="click: $root.loadAlsoLearnCourses.bind($root, alsoLearnCourses.pageNumber() + 1)">
+                            <strong>
+                                <i class="fa fa-angle-right"></i>
+                            </strong>
+                        </div>
+                        <!-- /ko -->
+                        <!-- ko foreach: alsoLearnCourses.dataList() -->
+                        <div class="col-md-3 item-container">
+                            <div class="thumbnail">
+                                <img data-bind="attr: {src: (avatar() == null || avatar() == '') ? 'assets/img/course-0.png' : avatar()}">
+
+                                <div class="language">
+                                    <img class="flag-circle" style="width: 25px;"
+                                         data-bind="attr: {src: 'assets/img/lang-flag/' + langSpeak() + '.png'}">
+                                </div>
+                                <div class="caption">
+                                    <p style="font-size: 12px;">
+                                        <strong style="font-size: 16px;">
+                                            <a data-bind="attr: {href: '#course-details/' + id()}, text: name"
+                                               class="text-primary">
+                                            </a>
+                                        </strong>
+                                        <br/>
+                                        by <a data-bind="text: creatorName, attr: {href: '#profile/' + creatorName()}"
+                                              style="color: #000;"></a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /ko -->
+                    </div>
+                    <!-- /ko -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Main content ends-->
+</session>

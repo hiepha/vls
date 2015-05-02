@@ -1,0 +1,127 @@
+.btn.metro-style {
+    padding: 4px 12px;
+    text-align: center;
+    vertical-align: middle !important;
+    background-color: #d9d9d9;
+    border: 1px transparent solid;
+    color: #222222;
+    border-radius: 0;
+    cursor: pointer;
+    display: inline-block;
+    outline: none;
+    line-height: 16px;
+    margin: auto;
+}
+.btn.success {
+    background-color: #60a917;
+    color: #ffffff !important;
+}
+
+.btn.info {
+    background-color: #4390df;
+    color: #ffffff !important;
+}
+
+.btn-outline-inverse.success:hover,
+.btn-outline-inverse.success:focus,
+.btn-outline-inverse.success:active {
+    background-color: #6BD303;
+    border-color: #8FE03D;
+}
+
+
+
+.btn-outline-inverse.info:hover,
+.btn-outline-inverse.info:focus,
+.btn-outline-inverse.info:active {
+    background-color: #1A67B6;
+    border-color: #69A2DB;
+}
+
+.links a {
+    color: black;
+    text-decoration: underline;
+    text-decoration-color: white;
+}
+
+.text-white {
+    color: white;
+}
+
+#top-navbar {
+    color: #ffffff;
+    z-index: 9999;
+}
+
+#top-navbar .navbar-row {
+    float: left;
+    width: 100%;
+    padding: 10px 34px;
+}
+
+#top-navbar .navbar-row:not(:last-of-type) {
+    margin-bottom: 0.5px;
+}
+
+#top-navbar .navbar-row:last-of-type {
+    border-width: 1px;
+    border-style: hidden;
+    border-top: none;
+    border-color: inherit;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+#top-navbar .nav-element{
+    font-size: 17px;
+    font-weight: bold;
+    padding: 8px 17px;
+    float: right;
+}
+
+#top-navbar .nav-element:not(:last-of-type){
+    border-left: 1px inset rgba(255, 255, 255, 0.8);
+}
+
+#top-navbar .breadcrumb-container {
+    padding: 0 17px;
+    float: left;
+}
+
+#top-navbar .breadcrumb-container .crumb-element{
+    font-size: 17px;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+#top-navbar .breadcrumb-container .divider {
+    margin: 0 5px;
+}
+
+#top-navbar .breadcrumb-container .current {
+    font-size: 15px;
+    font-weight: normal;
+    text-decoration: none;
+}
+
+.bg-half-transparent {
+    background-color: rgba(0, 0, 0, 0.4) !important;
+    border-color: rgba(0, 0, 0, 0.4);
+    color: white;
+}
+
+.bg-linear-gradient {
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.2) 78%, rgba(0, 0, 0, 0.1) 100%);
+}
+
+#main-content {
+    margin: 0px;
+    height: auto;
+}
+#main-content .section-wrapper {
+
+}
+
+.content-warpper {
+    position: static;
+}

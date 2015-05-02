@@ -1,0 +1,47 @@
+<session>
+    <style>
+        .course-item {
+            padding-left: 5px;
+            padding-right: 5px;
+        }
+    </style>
+    <div class="row content container-fluid">
+        <div class="panel panel-default panel-body" data-bind="css: {'well': friends().length > 0}">
+            <div class="container-fluid row" style="margin-left: auto; margin-right: auto;margin: 0px -5px;">
+                <!-- ko if: friends().length == 0 -->
+                <div class="well text-center">
+                    <h3>
+                        <strong>
+                            <span>No friends :(</span>
+                        </strong>
+                    </h3>
+                </div>
+                <!-- /ko -->
+                <!-- ko foreach: friends -->
+                <div class="col-md-4 course-item">
+                    <div class="panel panel-default">
+                        <div class="panel-body media">
+                            <a class="pull-left" href="#">
+                                <img class="media-object course-img" data-bind="attr: {src: (avatar() != null && avatar() != '') ? avatar() : 'assets/img/avatar.jpg'}">
+                            </a>
+
+                            <div class="media-body">
+                                <h4 class="media-heading course-title">
+                                    <a href="javascript:;"
+                                       data-bind="text: name">
+                                    </a>
+                                </h4>
+                                <span class="label label-warning">Member</span>
+                                <a class="btn btn-info btn-block" style="margin-top: 5px;" data-bind="attr: {href: '#profile/' + name()}">
+                                    <i class="glyphicon glyphicon-home"></i>
+                                    Visit
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /ko -->
+            </div>
+        </div>
+    </div>
+</session>

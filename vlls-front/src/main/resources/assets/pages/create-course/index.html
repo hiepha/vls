@@ -1,0 +1,109 @@
+<session>
+
+    <!-- Header info -->
+    <nav class="navbar header-element page-title" role="navigation"
+         style="border-radius: 6px; border-top-right-radius: 0; border-top-left-radius: 0;">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <div class="navbar-brand">
+                    <i class="fa fa-plus"></i>
+                    Create Course
+                    </strong>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- Header info ends -->
+
+    <!-- Main content -->
+    <div class="row">
+
+        <!-- Main body -->
+        <div class="col-md-8">
+            <div class="panel panel-default main-body">
+                <div class="panel-body">
+                    <form role="form" class="form-horizontal">
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <label for="name" class="pull-right">Name</label>
+                            </div>
+                            <div class="col-md-9">
+                                <input class="form-control" id="name" data-bind="value: courseName">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <label for="category" class="pull-right">Category</label>
+                            </div>
+                            <div class="col-md-6">
+                                <select class="form-control" id="category"
+                                    data-bind="
+                                        options: categories,
+                                        optionsText: 'name',
+                                        optionsValue: 'id',
+                                        value: category">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <label for="teaching" class="pull-right">Teaching</label>
+                            </div>
+                            <div class="col-md-6">
+                                <select class="form-control" id="teaching"
+                                    data-bind="
+                                        options: languages,
+                                        optionsText: 'name',
+                                        optionsValue: 'id',
+                                        value: langTeach">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <label for="for" class="pull-right">For</label>
+                            </div>
+                            <div class="col-md-6">
+                                <select class="form-control" id="for"
+                                        data-bind="
+                                        options: languages,
+                                        optionsText: 'name',
+                                        optionsValue: 'id',
+                                        value: langSpeak">
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label>speakers</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-3 col-sm-10">
+                                <a type="button" href="javascript:;" class="btn btn-default"
+                                        data-bind="click: $root.create.bind($root)">
+                                    Create course
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="panel panel-default main-body">
+                <div class="panel-body">
+                    <label>Why create a course?</label>
+                    <ul>
+                        <li>A quick list of personal facts to remember</li>
+                        <li>Share common content with your classmates/colleagues</li>
+                        <li>Share awesome teaching materials with the community!</li>
+                    </ul>
+                    <label>Need more help?</label>
+
+                    <p>Check out the <a href="javascript:;">Course Creation Manual</a></p>
+                </div>
+            </div>
+        </div>
+        <!-- Main body ends -->
+    </div>
+    <!-- Main content ends-->
+</session>

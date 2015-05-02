@@ -1,0 +1,136 @@
+<session>
+
+    <!-- Main content -->
+    <div class="row">
+        <!-- Main body -->
+        <div class="col-md-8">
+            <div class="panel panel-default main-body">
+                <div class="panel-body">
+                    <form class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <h3 class="ruled dashed" align="center">Email Notification</h3>
+                        </div>
+                        <hr class="dashed">
+                        <div>
+                            <p>Select the emails you would like to receive from VLLS.</p>
+
+                            <h3 class="left">General</h3>
+
+                            <div class="field">
+                                <input checked="checked" id="id_weekly_summary" name="weekly_summary" type="checkbox">
+                                <label for="id_weekly_summary">My weekly learning update</label>
+                            </div>
+
+                            <h3 class="left">Reminders</h3>
+
+                            <div class="field">
+                                <input checked="checked" id="id_dying_memory_reminder" name="dying_memory_reminder"
+                                       type="checkbox">
+                                <label for="id_dying_memory_reminder">When I have items ready for watering</label>
+                            </div>
+
+                            <h3 class="left">Notifications</h3>
+
+                            <div class="field">
+                                <input checked="checked" id="id_activity_followed_me" name="activity_followed_me"
+                                       type="checkbox">
+                                <label for="id_activity_followed_me">
+                                    When someone follows me as a mempal
+                                </label>
+                            </div>
+
+                            <div class="field">
+                                <input checked="checked" id="id_activity_commented_on" name="activity_commented_on"
+                                       type="checkbox">
+                                <label for="id_activity_activity_commented_on">
+                                    When someone comments on a thread I started
+                                </label>
+                            </div>
+
+                            <div class="field">
+                                <input checked="checked" id="id_activity_commented_course"
+                                       name="activity_commented_course"
+                                       type="checkbox">
+                                <label for="id_activity_activity_commented_course">
+                                    When someone posts a new thread on a course I created or contribute to
+                                </label>
+                            </div>
+
+                            <h3 class="left">Announcements</h3>
+
+                            <div class="field">
+                                <input checked="checked" id="id_general_announcements" name="general_announcements"
+                                       type="checkbox">
+                                <label for="id_general_announcements">General VLLS news and feature updates</label>
+                            </div>
+
+                            <br>
+
+                            <div class="form-group" align="center" style="margin-bottom: 0px;">
+                                <div class="col-md-6 col-md-offset-3">
+                                    <button type="submit" class="btn btn-success btn-block btn-lg">
+                                        <strong style="font-size: 22px;">
+                                            <i class="fa fa-check"></i>
+                                            Save
+                                        </strong>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--
+                        <div class="form-group">
+                            <div class="col-md-4" align="right">
+                                &nbsp;
+                            </div>
+                            <div class="col-md-6">
+                                <a href="javascript: void(0)">I forgot my password!</a>
+                            </div>
+                        </div>
+                        -->
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- Main body ends -->
+
+        <!-- Right sidebar -->
+        <div class="col-md-4">
+            <div class="panel panel-default main-body">
+                <div class="panel-body">
+                    <form class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <h3 class="ruled dashed" align="center">Don't want any email?</h3>
+                        </div>
+                        <hr class="dashed">
+                        <p class="center">
+                            <a class="btn btn-block btn-small btn-danger" data-role="emails-disable-all" style="width: 32%">
+                                <i class="fa fa-close"></i>
+                                Disable all emails
+                            </a>
+                        </p>
+
+                        <p class="center" style="width: 100%">
+                            We may still need to send you the occasional email when our terms of use change or if there
+                            is
+                            something that affects your account specifically.
+                        </p>
+                        <hr class="dashed">
+                        <!--
+                        <div class="form-group">
+                            <div class="col-md-4" align="right">
+                                &nbsp;
+                            </div>
+                            <div class="col-md-6">
+                                <a href="javascript: void(0)">I forgot my password!</a>
+                            </div>
+                        </div>
+                        -->
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- Right sidebar ends -->
+    </div>
+    <!-- Main content ends-->
+</session>
