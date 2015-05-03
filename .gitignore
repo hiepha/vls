@@ -16,3 +16,8 @@ hs_err_pid*
 build
 bin
 target
+*.iml
+/*/*.iml
+
+# Frontend plugins
+/vlls-front/src/main/resources/assets/plugins/**
