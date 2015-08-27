@@ -1,4 +1,4 @@
-*.class
+**/*.class
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
@@ -16,7 +16,7 @@ hs_err_pid*
 build
 bin
 target
-*.iml
+**/*.iml
 
 # Frontend plugins
-/vlls-front/src/main/resources/assets/plugins/**
+/vlls-front/src/assets/plugins/**
