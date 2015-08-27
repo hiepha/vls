@@ -30,26 +30,26 @@ vlls:
       password: "slv.pc.tpf"
       fromEmail: "fpt.cp.vls@gmail.com"
       fromAlias: "Virtual Language Learning System"
-    template:
-      revision: "C:\\Users\\Dell\\Google Drive\\CAPSTONE\\vlls\\vlls-front\\src\\main\\resources\\revisionWords.html"
-      revisionNew: "C:\\Users\\Dell\\Google Drive\\CAPSTONE\\vlls\\vlls-front\\src\\main\\resources\\revisionNewWords.html"
-      reminder:
+#    template:
+#      revision: "C:\\Users\\Dell\\Google Drive\\CAPSTONE\\vlls\\vlls-front\\src\\main\\resources\\revisionWords.html"
+#      revisionNew: "C:\\Users\\Dell\\Google Drive\\CAPSTONE\\vlls\\vlls-front\\src\\main\\resources\\revisionNewWords.html"
+#      reminder:
   file:
    en:
     audio:
-     location: "C:\\Users\\Dell\\Google Drive\\CAPSTONE\\vlls\\vlls-front\\src\\main\\resources\\assets\\audio\\en"
+     location: "/Users/apple/Documents/_Working/VLS/github/vlls-front/src/main/resources/assets/audio/en"
    item:
     audio:
-     location: "C:\\Users\\Dell\\Google Drive\\CAPSTONE\\vlls\\vlls-front\\src\\main\\resources\\assets\\audio\\item"
+     location: "/Users/apple/Documents/_Working/VLS/github/vlls-front/src/main/resources/assets/audio/item"
     img:
-     location: "C:\\Users\\Dell\\Google Drive\\CAPSTONE\\vlls\\vlls-front\\src\\main\\resources\\assets\\img\\item"
+     location: "/Users/apple/Documents/_Working/VLS/github/vlls-front/src/main/resources/assets/img/item"
    avatar:
     img:
-     location: "C:\\Users\\Dell\\Google Drive\\CAPSTONE\\vlls\\vlls-front\\src\\main\\resources\\assets\\img\\item"
-   notification:
-    location: "C:\\Users\\Dell\\Google Drive\\CAPSTONE\\vlls\\vlls-back\\src\\main\\resources\\"
-   recommendation:
-    location: "C:\\Users\\Dell\\Google Drive\\CAPSTONE\\vlls\\vlls-back\\src\\main\\resources\\"
+     location: "/Users/apple/Documents/_Working/VLS/github/vlls-front/src/main/resources/assets/img/avatar"
+#   notification:
+#    location: "C:\\Users\\Dell\\Google Drive\\CAPSTONE\\vlls\\vlls-back\\src\\main\\resources\\"
+#   recommendation:
+#    location: "C:\\Users\\Dell\\Google Drive\\CAPSTONE\\vlls\\vlls-back\\src\\main\\resources\\"
    frontEnd:
     url: "http://localhost/vlls-front/"
 #  file:
