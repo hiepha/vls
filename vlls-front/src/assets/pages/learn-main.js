@@ -23,7 +23,7 @@ requirejs.config({
         'knob': '../plugins/jquery-knob/js/jquery.knob',
         'learn-turn': 'learn-turn',
         'chartjs': '../plugins/chartjs/Chart.min',
-        'starRating': '../plugins/bootstrap-star-rating/js/star-rating',
+        'starRating': '../plugins/bootstrap-star-rating/js/star-rating.min',
         'resource': 'resource',
         'notify': '../plugins/metro-ui-css/js/metro-notify',
         'notifies': 'notifies',

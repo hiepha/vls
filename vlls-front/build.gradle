@@ -16,3 +16,75 @@ jar {
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.11'
 }
+
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath 'com.moowork.gradle:gradle-node-plugin:0.9'
+    }
+}
+
+apply plugin: "com.moowork.node"
+
+node {
+    version = '0.12.2'
+    npmVersion = '2.7.5'
+    download = true
+}
+
+task npmCacheConfig(type: NpmTask) {
+    description = "Configure the NPM cache"
+    def npmCacheDir = "caches/npm"
+    outputs.files file(npmCacheDir)
+    args = [ 'config', 'set', 'cache', npmCacheDir ]
+}
+
+task npmPackages(type: NpmTask) {
+    description = "Install Node.js packages"
+    args = [ 'install' ]
+    inputs.files file('package.json')
+    outputs.files file('node_modules')
+    dependsOn npmCacheConfig
+}
+
+task bowerInstall(type: NodeTask) {
+    script = file('node_modules/bower/bin/bower')
+    args = ['install']
+    inputs.files file("bower.json")
+    dependsOn npmPackages
+}
+
+task bowerPackages(type: Sync) {
+    from 'caches/bower_components'
+    into "src/assets/plugins"
+    include 'bootstrap/dist/fonts/*'
+    include 'bootstrap/dist/*/*.min.*'
+    include 'bootstrap-star-rating/css/*.min.*'
+    include 'bootstrap-star-rating/js/*.min.*'
+    include 'chartjs/*.min.*'
+    include 'durandal/css/*.*'
+    include 'durandal/js/**/*.*'
+    include 'fontawesome/**/*.*'
+    include 'jplayer/jquery.jplayer/*.js'
+    include 'jquery/jquery.min.js'
+    include 'jquery-knob/dist/jquery.knob.min.js'
+    include 'jquery-validation/dist/jquery.validate.min.js'
+    include 'knockout.js/knockout.js'
+    include 'knockout-mapping/build/output/knockout.mapping-latest.js'
+    include 'metro-ui-css/js/metro-notify.js'
+    include 'metro-ui-css/js/metro-rating.js'
+    include 'metro-ui-css/css/*'
+    include 'requirejs/require.js'
+    include 'requirejs-text/text.js'
+    include 'select2/select2.min.js'
+    include 'select2/*.css'
+    include 'select2/*.png'
+    include 'select2/*.gif'
+    include 'sockjs-client/dist/sockjs.js'
+    include 'stomp-websocket/lib/stomp.js'
+    dependsOn bowerInstall
+}

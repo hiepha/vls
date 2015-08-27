@@ -2996,13 +2996,13 @@ INSERT INTO `liked_picture` VALUES (4,1),(4,8),(4,121),(4,26),(4,75),(4,120),(4,
 
 INSERT INTO `friendship` VALUES (4,2,1,NULL),(4,3,1,NULL);
 
-INSERT INTO `conversation` VALUES (1, 2, 4, NOW(), 0);
+# INSERT INTO `conversation` VALUES (1, 2, 4, NOW(), 0);
 # INSERT INTO `conversation` VALUES (2, 2, 3, NOW(), 0);
 
-INSERT INTO `conversation_reply` VALUES (1, 'Hey!', 2, NOW(), 1, 1);
-INSERT INTO `conversation_reply` VALUES (2, 'Dafug?', 4, NOW() + 1, 1, 1);
-INSERT INTO `conversation_reply` VALUES (3, 'Fuck u!', 2, NOW() + 2, 1, 1);
-INSERT INTO `conversation_reply` VALUES (4, 'Fuck u!', 4, NOW() + 3, 1, 0);
+# INSERT INTO `conversation_reply` VALUES (1, 'Hey!', 2, NOW(), 1, 1);
+# INSERT INTO `conversation_reply` VALUES (2, 'Dafug?', 4, NOW() + 1, 1, 1);
+# INSERT INTO `conversation_reply` VALUES (3, 'Fuck u!', 2, NOW() + 2, 1, 1);
+# INSERT INTO `conversation_reply` VALUES (4, 'Fuck u!', 4, NOW() + 3, 1, 0);
 
 # INSERT INTO `conversation_reply` VALUES (5, 'Hey!', 2, NOW(), 2, 1);
 # INSERT INTO `conversation_reply` VALUES (6, 'Dafug?', 3, NOW() + 1, 2, 1);

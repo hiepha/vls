@@ -1,6 +1,3 @@
 {
-  "directory" : "src/main/resources/assets/plugins",
-  "storage" : {
-    "packages" : ".bower"
-  }
+  "directory" : "caches/bower_components/"
 }

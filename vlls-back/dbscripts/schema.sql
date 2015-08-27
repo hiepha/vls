@@ -494,54 +494,54 @@ CREATE TABLE `course_rating_rate` (
 -- Table structure for table `conversation`
 --
 
-DROP TABLE IF EXISTS `conversation`;
-CREATE TABLE `conversation` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `user_one_id` INT(11) NOT NULL,
-  `user_two_id` INT(11) NOT NULL,
-  `last_update` DATETIME DEFAULT NULL,
-  `read` BIT DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `Fk_conversation_user_one_id_idx` (`user_one_id`),
-  KEY `Fk_conversation_user_two_id_idx` (`user_two_id`),
-
-  CONSTRAINT `Fk_conversation_user_one`
-  FOREIGN KEY (`user_two_id`)
-  REFERENCES `user` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `Fk_conversation_user_two`
-  FOREIGN KEY (`user_two_id`)
-  REFERENCES `user` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION
-) CHARACTER SET utf8;
+# DROP TABLE IF EXISTS `conversation`;
+# CREATE TABLE `conversation` (
+#   `id` INT(11) NOT NULL AUTO_INCREMENT,
+#   `user_one_id` INT(11) NOT NULL,
+#   `user_two_id` INT(11) NOT NULL,
+#   `last_update` DATETIME DEFAULT NULL,
+#   `read` BIT DEFAULT NULL,
+#   PRIMARY KEY (`id`),
+#   KEY `Fk_conversation_user_one_id_idx` (`user_one_id`),
+#   KEY `Fk_conversation_user_two_id_idx` (`user_two_id`),
+#
+#   CONSTRAINT `Fk_conversation_user_one`
+#   FOREIGN KEY (`user_two_id`)
+#   REFERENCES `user` (`id`)
+#     ON DELETE NO ACTION
+#     ON UPDATE NO ACTION,
+#   CONSTRAINT `Fk_conversation_user_two`
+#   FOREIGN KEY (`user_two_id`)
+#   REFERENCES `user` (`id`)
+#     ON DELETE NO ACTION
+#     ON UPDATE NO ACTION
+# ) CHARACTER SET utf8;
 
 --
 -- Table structure for table `conversation_reply`
 --
-
-DROP TABLE IF EXISTS `conversation_reply`;
-CREATE TABLE `conversation_reply` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `reply` TEXT NOT NULL,
-  `user_id` INT(11) NOT NULL,
-  `time` DATETIME DEFAULT NULL,
-  `conversation_id` INT(11) NOT NULL,
-  `read` BIT DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `Fk_conversation_reply_user_idx` (`user_id`),
-  KEY `Fk_conversation_reply_conversation_idx` (`conversation_id`),
-
-  CONSTRAINT `Fk_conversation_reply_user`
-  FOREIGN KEY (`user_id`)
-  REFERENCES `user` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `Fk_conversation_reply_conversation`
-  FOREIGN KEY (`conversation_id`)
-  REFERENCES `conversation` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION
-) CHARACTER SET utf8;
+#
+# DROP TABLE IF EXISTS `conversation_reply`;
+# CREATE TABLE `conversation_reply` (
+#   `id` INT(11) NOT NULL AUTO_INCREMENT,
+#   `reply` TEXT NOT NULL,
+#   `user_id` INT(11) NOT NULL,
+#   `time` DATETIME DEFAULT NULL,
+#   `conversation_id` INT(11) NOT NULL,
+#   `read` BIT DEFAULT NULL,
+#   PRIMARY KEY (`id`),
+#   KEY `Fk_conversation_reply_user_idx` (`user_id`),
+#   KEY `Fk_conversation_reply_conversation_idx` (`conversation_id`),
+#
+#   CONSTRAINT `Fk_conversation_reply_user`
+#   FOREIGN KEY (`user_id`)
+#   REFERENCES `user` (`id`)
+#     ON DELETE NO ACTION
+#     ON UPDATE NO ACTION,
+#   CONSTRAINT `Fk_conversation_reply_conversation`
+#   FOREIGN KEY (`conversation_id`)
+#   REFERENCES `conversation` (`id`)
+#     ON DELETE NO ACTION
+#     ON UPDATE NO ACTION
+# ) CHARACTER SET utf8;
 

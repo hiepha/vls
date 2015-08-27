@@ -1,40 +1,42 @@
 package com.vlls.web.config;
 
 import com.vlls.web.filter.HttpDeleteFormContentFilter;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
-import org.springframework.boot.autoconfigure.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.boot.bind.RelaxedPropertyResolver;
 import org.springframework.boot.context.embedded.FilterRegistrationBean;
 import org.springframework.boot.context.embedded.MultipartConfigFactory;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.PropertyResolver;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.util.Assert;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.filter.HttpPutFormContentFilter;
-import org.springframework.web.multipart.commons.CommonsFileUploadSupport;
-import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.resource.AppCacheManifestTransformer;
+import org.springframework.web.servlet.resource.PathResourceResolver;
+import org.springframework.web.servlet.resource.ResourceResolver;
 
 import javax.servlet.Filter;
 import javax.servlet.MultipartConfigElement;
-import javax.sql.DataSource;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by hiephn on 2014/07/23.
  */
 @Configuration
 @ConditionalOnWebApplication
-public class WebConfig implements EnvironmentAware {
+public class WebConfig extends WebMvcConfigurerAdapter implements EnvironmentAware {
 
     private Environment environment;
+
+    @Value("${resources.projectroot:}")
+    private String projectRoot;
+
+    @Value("${vlls.version:}")
+    private String appVersion;
 
     @Override
     public void setEnvironment(Environment environment) {
@@ -108,5 +110,38 @@ public class WebConfig implements EnvironmentAware {
         factory.setMaxFileSize("10MB");
         factory.setMaxRequestSize("10MB");
         return factory.createMultipartConfig();
+    }
+
+    private String getProjectRootRequired() {
+        Assert.state(this.projectRoot != null, "Please set \"resources.projectRoot\" in application.yml");
+        return this.projectRoot;
+    }
+
+    protected String getApplicationVersion() {
+        return this.environment.acceptsProfiles("dev") ? "dev" : this.appVersion;
+    }
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+
+        boolean devMode = this.environment.acceptsProfiles("dev");
+
+        String location = devMode ? "file:///" + getProjectRootRequired() : "classpath:static/";
+        Integer cachePeriod = devMode ? 0 : null;
+        boolean useResourceCache = !devMode;
+        String version = getApplicationVersion();
+
+        AppCacheManifestTransformer appCacheTransformer = new AppCacheManifestTransformer();
+        ResourceResolver resourceResolver = new PathResourceResolver();
+//        VersionResourceResolver versionResolver = new VersionResourceResolver()
+//                .addFixedVersionStrategy(version, "/**/*.js", "/**/*.map")
+//                .addContentVersionStrategy("/**");
+
+        registry.addResourceHandler("/**")
+                .addResourceLocations(location)
+                .setCachePeriod(cachePeriod)
+                .resourceChain(useResourceCache)
+                .addResolver(resourceResolver)
+                .addTransformer(appCacheTransformer);
     }
 }

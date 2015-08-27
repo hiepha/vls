@@ -23,7 +23,7 @@ requirejs.config({
         'paging': 'paging',
         'resource': 'resource',
         'chartjs': '../plugins/chartjs/Chart.min',
-        'starRating': '../plugins/bootstrap-star-rating/js/star-rating',
+        'starRating': '../plugins/bootstrap-star-rating/js/star-rating.min',
         'notify': '../plugins/metro-ui-css/js/metro-notify',
         'notifies': 'notifies',
         'rating': '../plugins/metro-ui-css/js/metro-rating',
