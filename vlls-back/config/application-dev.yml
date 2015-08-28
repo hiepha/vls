@@ -1,3 +1,6 @@
+resources:
+  projectroot: /Users/apple/Documents/_Working/VLS/github/vlls-front/src/
+
 spring:
   jpa:
     show-sql: true

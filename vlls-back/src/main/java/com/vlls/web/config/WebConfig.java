@@ -124,18 +124,15 @@ public class WebConfig extends WebMvcConfigurerAdapter implements EnvironmentAwa
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
 
-        boolean devMode = this.environment.acceptsProfiles("dev");
+        boolean devMode = true;
+//        boolean devMode = this.environment.acceptsProfiles("dev");
 
-        String location = devMode ? "file:///" + getProjectRootRequired() : "classpath:static/";
+        String location = "file://" + getProjectRootRequired();
         Integer cachePeriod = devMode ? 0 : null;
         boolean useResourceCache = !devMode;
-        String version = getApplicationVersion();
 
         AppCacheManifestTransformer appCacheTransformer = new AppCacheManifestTransformer();
         ResourceResolver resourceResolver = new PathResourceResolver();
-//        VersionResourceResolver versionResolver = new VersionResourceResolver()
-//                .addFixedVersionStrategy(version, "/**/*.js", "/**/*.map")
-//                .addContentVersionStrategy("/**");
 
         registry.addResourceHandler("/**")
                 .addResourceLocations(location)

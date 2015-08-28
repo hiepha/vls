@@ -1,6 +1,12 @@
 package com.vlls.service;
 
-import com.vlls.exception.*;
+import com.vlls.exception.ClientTechnicalException;
+import com.vlls.exception.DuplicatedItemException;
+import com.vlls.exception.InvalidEmailException;
+import com.vlls.exception.NoInstanceException;
+import com.vlls.exception.ServerTechnicalException;
+import com.vlls.exception.UnauthenticatedException;
+import com.vlls.exception.UnauthorizedException;
 import com.vlls.exception.UnsupportedOperationException;
 import com.vlls.jpa.domain.Gender;
 import com.vlls.jpa.domain.Role;
@@ -9,7 +15,6 @@ import com.vlls.jpa.repository.RoleRepository;
 import com.vlls.jpa.repository.UserRepository;
 import com.vlls.service.model.UserSessionInfo;
 import com.vlls.web.model.UserInfoPageResponse;
-import com.vlls.web.model.UserInfoResponse;
 import com.vlls.web.model.UserPageResponse;
 import com.vlls.web.model.UserResponse;
 import org.slf4j.Logger;
@@ -281,7 +286,7 @@ public class UserService extends AbstractService {
                 }
 
                 // Setting email
-                this.validateEmailFormat(email);
+//                this.validateEmailFormat(email);
                 user.setEmail(email);
 
                 // Setting other information
@@ -352,7 +357,7 @@ public class UserService extends AbstractService {
             user.setBio(bio);
             user.setPoint(point);
             user.setPhone(phone);
-            this.validateEmailFormat(email);
+//            this.validateEmailFormat(email);
             user.setEmail(email);
             user.setGender(Gender.valueOf(gender));
         }

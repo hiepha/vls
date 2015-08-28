@@ -1,7 +1,6 @@
 package com.vlls.service;
 
 import com.vlls.exception.ClientTechnicalException;
-import com.vlls.exception.InvalidEmailException;
 import com.vlls.exception.ServerTechnicalException;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
@@ -18,8 +17,6 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
-import javax.mail.internet.AddressException;
-import javax.mail.internet.InternetAddress;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
@@ -44,13 +41,13 @@ public abstract class AbstractService extends StringUtils {
 
     protected RestTemplate restTemplate = new RestTemplate();
 
-    protected void validateEmailFormat(String email) throws InvalidEmailException {
-        try {
-            new InternetAddress(email);
-        } catch (AddressException e) {
-            throw new InvalidEmailException("Invalid email address: " + email);
-        }
-    }
+//    protected void validateEmailFormat(String email) throws InvalidEmailException {
+//        try {
+//            new InternetAddress(email);
+//        } catch (AddressException e) {
+//            throw new InvalidEmailException("Invalid email address: " + email);
+//        }
+//    }
 
     protected HttpResponse get(String url, List<NameValuePair> nameValuePairs)
             throws IOException, URISyntaxException {

@@ -1,13 +1,10 @@
-resources:
-  projectroot: Users/apple/Documents/_Working/VLS/github/vlls-front/src/
-
 endpoints:
   shutdown:
     id: godown
     enabled: true
 
 server:
-  port: 8080
+  port: 80
 
 spring:
   profiles:

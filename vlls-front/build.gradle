@@ -2,7 +2,7 @@ apply plugin: 'java'
 apply plugin: 'idea'
 
 sourceCompatibility = 1.8
-version = '1.0'
+version = '0.0.1-SNAPSHOT'
 
 repositories {
     mavenCentral()
@@ -10,7 +10,7 @@ repositories {
 
 jar {
     baseName = 'vlls-front'
-    version =  '0.1.0'
+    version =  '0.0.1-SNAPSHOT'
 }
 
 dependencies {
@@ -87,4 +87,10 @@ task bowerPackages(type: Sync) {
     include 'sockjs-client/dist/sockjs.js'
     include 'stomp-websocket/lib/stomp.js'
     dependsOn bowerInstall
+}
+
+task srcZip(type: Zip) {
+    classifier = 'src'
+    from projectDir
+    include 'src/**/*'
 }

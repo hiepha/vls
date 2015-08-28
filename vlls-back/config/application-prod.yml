@@ -1,3 +1,6 @@
+resources:
+  projectroot: /opt/vlls/vlls-front/src/
+
 spring:
   jpa:
     show-sql: true
@@ -33,15 +36,15 @@ vlls:
   file:
     en:
       audio:
-        location: "/home/ubuntu/vlls/vlls-front/src/main/resources/assets/audio/en"
+        location: "/opt/vlls/vlls-front/src/assets/audio/en"
     item:
       audio:
-        location: "/home/ubuntu/vlls/vlls-front/src/main/resources/assets/audio/item"
+        location: "/opt/vlls/vlls-front/src/assets/audio/item"
       img:
-        location: "/home/ubuntu/vlls/vlls-front/src/main/resources/assets/img/item"
+        location: "/opt/vlls/vlls-front/src/assets/img/item"
     avatar:
       img:
-        location: "/home/ubuntu/vlls/vlls-front/src/main/resources/assets/img/avatar"
+        location: "/opt/vlls/vlls-front/src/assets/img/avatar"
 
 logging:
   file: "/var/log/vlls/vlls.log"
