@@ -4,7 +4,6 @@ apply plugin: 'idea'
 version = '1.0'
 
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.11'
 }
 
 subprojects {
